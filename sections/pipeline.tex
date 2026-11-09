@@ -3,7 +3,7 @@
 \subsection{The Curation Pipeline and Its Components}
 \label{sec:pipeline}
 
-All experiments use one pipeline family, which reads a corpus split into chunks and produces an OWL-style schema (TBox) and a set of facts (ABox) stored as RDF. Figure~\ref{fig:pipeline} shows the five stages, and Table~\ref{tab:experiments} lists the studies, Exp1 to Exp8.
+All experiments use one pipeline family, which reads a corpus split into chunks and produces an OWL-style schema (TBox) and a set of facts (ABox) stored as RDF. Formally, a constructed knowledge graph is represented as $G = (V, E)$, where $V$ denotes the set of entity vertices and $E \subseteq V \times \mathcal{R} \times V$ denotes directed relational edges labeled by predicates from a relation vocabulary $\mathcal{R}$. Figure~\ref{fig:pipeline} shows the five stages, and Table~\ref{tab:experiments} lists the studies, Exp1 to Exp8.
 
 \begin{figure*}[t]
 \centering
