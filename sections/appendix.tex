@@ -1,0 +1,224 @@
+\renewcommand{\arraystretch}{0.88}
+\section{Additional Results and Records}
+\label{app:experiments}
+
+\begin{table*}[!t]
+\centering
+\caption{Results at a glance. Values are differences in points unless marked; $n$ is the number of shards (two run seeds averaged within a shard where used). Status is the contrast's standing in the plan. A dash means the contrast was not repeated. For the equal-fact-count rows, the registered test asks whether the selection scores above the guided pass, and the status reports that it did not.}
+\label{tab:glance}
+\scriptsize\setlength{\tabcolsep}{2pt}
+\begin{tabular}{P{3.7cm}P{0.9cm}P{1.4cm}P{3.0cm}P{6.0cm}P{0.6cm}P{2.3cm}}
+\toprule
+Claim & Exp & Model, corpus & Contrast & Value [95\% interval] & $n$ & Status \\
+\midrule
+The list raises grounded QA & Exp7 & Qwen, 2Wiki & With vs.\ without list, four pipelines & L0 +14.7 [10.9, 18.4]; LOOP +9.4 [6.4, 12.2]; combined +9.3 [6.0, 12.1]; U-ext +4.5 [0.7, 8.8] & 30 & Descriptive (intervals only) \\
+Synonym list, answer correctness & Exp7 & Qwen, 2Wiki & Synonym list $-$ no list & L0 +15.4 [11.3, 19.5]; U-ext +1.6 [$-$1.4, 4.2] & 30 & Registered: improved (L0); not established (U-ext) \\
+Equal fact count: guided single pass above random subset of U-ext & Exp7 & Qwen, 2Wiki & L0 $-$ random subset of U-ext at L0's fact count; with seed, L0+seed $-$ random subset of U-ext+seed, QA & +28.2 [23.4, 33.2]; +39.1 [34.2, 44.1] & 30 & Registered: random subset not above the guided pass (both) \\
+Expansion raises grounded QA & Exp4, Exp5 & Qwen, 2Wiki & G $-$ L0 & +9.1 [4.7, 13.8]; +9.6 [5.2, 14.8] & 40; 24 & Post hoc secondary \\
+Iteration did not separate from one batch of the same CQs & Exp2 & Qwen, 2Wiki & Iteration $-$ one batch, recall & +1.2 [$-$3.5, 5.7], crossed shard $\times$ run seed interval & 24 & Registered primary (inconclusive) \\
+Hybrid QA: no detectable change at 1$\times$, lower at 4$\times$ budget in Qwen on 2Wiki & Exp8 & as above & 160 vs.\ 40 CQs, 1$\times$ & $-$3.6 to +0.6, all intervals include 0 (Table~\ref{tab:exp9}). At 4$\times$ budget, Qwen 2Wiki $-$9.1 [$-$13.8, $-$5.5] & 20--33 & Registered primary \\
+More CQs raise KG-only QA & Exp8 & Qwen, Gemma; 2Wiki, T-REx & 160 vs.\ 40 CQs, 1$\times$ & +3.5 to +10.9, all intervals above 0 (Table~\ref{tab:exp9}) & 20--33 & Secondary measure \\
+Guided repair not improved over random & Exp4, Exp5 & Qwen, 2Wiki & Guided $-$ random patches, QA & +1.9 [$-$1.6, 5.3]; $-$0.3, one-sided upper bound 3.1 & 40; 24 & Exp5 primary, margin 5; Exp4 inconclusive \\
+Combined pipeline leads loop on uncapped recall and recall at equal fact counts, trails on capped recall & Exp7 & Qwen, 2Wiki & Combined $-$ LOOP+seed, recall & Uncapped +5.6 [4.2, 7.0]; capped $-$8.7 [$-$10.6, $-$6.8]; equal fact counts +1.1 [0.5, 1.9] & 30 & Registered primary (uncapped); matching in plan \\
+Seeded extraction without CQs was not distinguishable from the combined pipeline & Exp7 & Qwen, 2Wiki & Combined $-$ U-ext+seed, QA & +0.3 [$-$3.1, 3.5]; 106k against 838k tokens per unit; answer correctness, seeded extraction higher by 2.3 [$-$0.2, 4.4] (post hoc) & 30 & Added arm \\
+Combined pipeline passes more fresh CQs than seeded extraction without CQs & Exp7 & Qwen, 2Wiki & Combined $-$ U-ext+seed, fresh-CQ pass rate & +13.5 [10.7, 16.3]; LLM judge of the builder's family & 30 & Secondary, in the Exp7 plan; added arm \\
+Most inexact gold facts are omissions & Exp6 & Qwen, 2Wiki & Omission share of inexact gold facts & 87.3\% of 1,336 & --- & Analysis of Exp2 graphs \\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+\begin{table*}[!ht]
+\centering
+\caption{Exp8, other arms against the reference of 40 CQs at 1$\times$, in points. The arms with 160 CQs have shard-cluster BCa 95\% intervals; the 40-CQ arm at 4$\times$ is an arm-mean difference with no registered interval. Tokens are the mean ratio of 160 CQs at 4$\times$ to the reference.}
+\label{tab:exp9other}
+\scriptsize\setlength{\tabcolsep}{2.5pt}
+\begin{tabular}{p{4.1cm}cccc}
+\toprule
+ & Qwen, T-REx & Gemma, T-REx & Gemma, 2Wiki & Qwen, 2Wiki \\
+\midrule
+KG-only QA, 160 CQs, 4$\times$ & +4.7 [1.6, 8.0] & +5.0 [1.7, 8.2] & +10.6 [2.5, 17.2] & +1.6 [$-$4.7, 5.7] \\
+KG-only QA, 40 CQs, 4$\times$ (mean) & +1.5 & $-$0.5 & +1.0 & 0.0 \\
+Evidence recall, 160 CQs, 4$\times$ & +1.9 [0.8, 3.9] & +0.6 [$-$0.2, 2.0] & +9.5 [5.9, 15.6] & +12.0 [8.8, 15.6] \\
+Hybrid QA, 160 CQs, 4$\times$ & +0.9 [$-$2.8, 4.2] & +0.3 [$-$2.2, 2.6] & $-$0.9 [$-$4.7, 3.4] & $-$9.1 [$-$13.8, $-$5.5] \\
+Precision, 160 CQs, 4$\times$ & $-$12.4 [$-$18.0, $-$7.8] & $-$1.2 [$-$4.8, 2.4] & +3.3 [$-$0.6, 7.1] & $-$12.2 [$-$17.0, $-$6.4] \\
+Precision, 160 CQs, 1$\times$ & 0.0 [$-$5.2, 5.0] & $-$0.5 [$-$5.2, 3.8] & +4.9 [0.8, 9.4] & $-$4.0 [$-$9.0, 0.7] \\
+Tokens, 160 CQs 4$\times$ / reference & 2.8 & 1.9 & 3.8 & 4.0 \\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+\begin{table*}[!t]
+\centering
+\caption{Exp8: 160 CQs at the 1$\times$ token budget against the reference of 40 CQs at 1$\times$. Differences in points with shard-cluster BCa 95\% intervals; $n$ is the number of shards in the contrast. Post hoc 90\% intervals for hybrid QA, left to right: [$-$1.8, 2.3], [$-$1.7, 3.1], [$-$3.4, 4.7] and [$-$8.1, 0.3].}
+\label{tab:exp9}
+\footnotesize\setlength{\tabcolsep}{3.5pt}
+\begin{tabular}{lcccc}
+\toprule
+ & Qwen, T-REx & Gemma, T-REx & Gemma, 2Wiki & Qwen, 2Wiki \\
+ & ($n$=33) & ($n$=26) & ($n$=20) & ($n$=24) \\
+\midrule
+Hybrid QA & +0.3 [$-$2.2, 2.6] & +0.6 [$-$2.2, 3.6] & +0.6 [$-$3.7, 5.6] & $-$3.6 [$-$8.9, 1.0] \\
+KG-only QA & +3.5 [0.7, 6.8] & +5.6 [2.0, 9.8] & +10.9 [4.1, 15.9] & +6.2 [0.3, 10.4] \\
+Evidence recall (uncapped) & +0.3 [$-$1.1, 2.1] & +1.0 [0.1, 2.3] & +9.2 [5.5, 15.4] & +9.9 [6.9, 13.2] \\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+\begin{table*}[!ht]
+\centering
+\caption{Original Qwen runs and the Gemma replication, in points with 95\% intervals ($n$ in shards or units). Labels are the plans' decision labels; for Exp5 the margin is 5 points. A dash means no value or no run. Nemotron is a third model whose grounded QA stayed at floor (at most .047 in every arm, post hoc).}
+\label{tab:replication}
+\scriptsize\setlength{\tabcolsep}{3pt}
+\begin{tabular}{P{3.7cm}P{3.7cm}P{4.2cm}P{3.5cm}}
+\toprule
+Experiment and contrast & Qwen & Gemma & Nemotron \\
+\midrule
+Exp1, iteration over none (by construction, plan) & +21.4 [16.2, 27.1] & +42.1 [33.6, 50.7] & invalid or at floor \\
+Exp4, GR over L0 & +9.7 [4.1, 15.0] & +13.1 [7.8, 18.4] & invalid or at floor \\
+Exp5, evaluation-guided over random repair & $-$0.3, upper bound 3.1 (one-sided), not improved & +1.5 [$-$3.1, 6.5], not improved & $-$0.7 [$-$1.9, 0.0] \\
+Exp7, recall, combined over LOOP+seed & +5.6 [4.2, 7.0] & +9.2 [7.6, 11.4] ($n$=60) & +13.1 [8.9, 16.8] ($n$=41) \\
+Exp7, recall, combined over L0+seed & +14.0 [12.1, 15.9] & +10.2 [2.1, 16.1] & +16.7 [11.8, 20.9] \\
+Exp7 design on T-REx, combined $-$ LOOP+seed & --- & +1.6 [$-$0.9, 4.4], not established ($n$=27) & +1.2 [$-$0.6, 4.1], not established ($n$=12) \\
+Exp7 design on T-REx, combined $-$ L0+seed & --- & +2.7 [$-$0.4, 5.8], not established & --- \\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+\begin{table*}[!ht]
+\centering
+\caption{Checks added after the main study, Qwen. Hybrid QA with up to 30 graph facts against vector-only QA (.502 [.460, .544]) and fact precision judged by Gemma, both on the 2Wiki Exp7 graphs (points, 95\% intervals, 30 shards); grounded QA, class-aligned recall and tokens per unit (thousands) for the Exp7 arms on T-REx (33 shards, one run seed). Precision was not measured for L0.}
+\label{tab:newchecks}
+\scriptsize\setlength{\tabcolsep}{2.5pt}
+\begin{tabular}{lcccccc}
+\toprule
+ & Hybrid QA & Hybrid $-$ vector & Precision & QA, T-REx & Recall, T-REx & Tokens (k) \\
+\midrule
+L0 & .600 & +9.8 [4.3, 14.6] & --- & --- & --- & --- \\
+L0+seed & .692 & +19.0 [14.7, 22.5] & .874 [.856, .890] & .290 & .173 & 22.7 \\
+LOOP+seed & .671 & +16.9 [12.2, 21.0] & .802 [.785, .819] & .346 & .189 & 310 \\
+Combined & .603 & +10.1 [5.3, 14.2] & .716 [.686, .741] & .371 & .228 & 298 \\
+U-ext+seed & .585 & +8.3 [2.2, 13.9] & .925 [.913, .938] & .421 & .184 & 19.1 \\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+\subsection{Further relation-list checks}
+\label{app:seednames}
+\paragraph{Relation list names.} Table~\ref{tab:seednames} lists the 22 names of each 2Wiki list, copied from the list files, in alphabetical order.
+
+\begin{table}[t]
+\centering
+\caption{The original list (relation names taken from the 2WikiMultihopQA training split) the induced list (proposed by an LLM from 300 corpus chunks), and a list induced the same way from 300 chunks outside the evaluation shards.}
+\label{tab:seednames}
+\scriptsize\setlength{\tabcolsep}{3pt}
+\begin{tabular}{lP{6.6cm}}
+\toprule
+Original & award received, cause of death, child, composer, country, country of citizenship, country of origin, date of birth, date of death, director, educated at, father, founded by, inception, mother, occupation, performer, place of birth, place of burial, place of death, publication date, spouse \\
+Induced & award, based on, birth date, birth place, cast member, child, country, death date, death place, director, employer, genre, located in, member of, nationality, occupation, parent, position held, release year, sibling, spouse, title \\
+Induced outside shards & based on, birth date, birth place, cast member, child, death date, death place, director, employer, genre, location, member of, nationality, occupation, parent, producer, publication date, release year, sibling, spouse, title, writer \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{Synonyms and alignment.}
+Class-aligned recall fell under synonyms, as name alignment predicts. In U-ext the synonym list's answer correctness was $-$1.5 points against the original list ([$-$4.2, 1.4]). A post hoc re-analysis of stored predictions tests the original list's gain without name matching (Table~\ref{tab:seedalign}). For the three pipelines that use CQs the effect stays above zero on both measures, and class-free recall keeps 65 to 85\% of the class-aligned effect.
+
+\begin{table}[!htb]
+\centering
+\caption{Post hoc list effect in points (95\% BCa intervals, 30 shards), Exp7. Class-free recall ignores relation classes when matching triples to gold; answer correctness drops the grounding requirement.}
+\label{tab:seedalign}
+\scriptsize\setlength{\tabcolsep}{2.5pt}
+\begin{tabular}{lccc}
+\toprule
+ & Recall, class aligned & Class-free recall & Answer correct \\
+\midrule
+L0 & +11.4 [9.3, 14.5] & +9.7 [7.6, 12.9] & +13.8 [10.5, 17.2] \\
+LOOP & +7.7 [5.4, 9.7] & +5.0 [2.9, 6.9] & +7.9 [4.8, 10.7] \\
+Combined & +10.3 [8.0, 12.6] & +6.8 [5.1, 8.6] & +7.0 [4.0, 9.7] \\
+U-ext & +2.1 [1.0, 3.5] & +0.6 [$-$0.7, 2.3] & +3.0 [0.0, 6.6] \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Seeded extraction against the combined pipeline}
+A post hoc 90\% interval of [$-$2.6, 3.0] around the difference in grounded QA (Section~\ref{sec:res-cost}) excludes differences beyond about 3 points in either direction. On T-REx the combined pipeline found more gold evidence (class-aligned recall +4.4, 90\% [3.0, 6.0]).
+
+\subsection{Fact-count check and coverage}
+With the list, U-ext raised grounded QA over L0+seed by 6.3 points ([2.6, 9.4], post hoc).
+
+\paragraph{Heuristic selections at equal fact count.} Appendix Table~\ref{tab:selection} gives the eight registered contrasts of the equal-fact-count check against the CQ-guided pass.
+
+\begin{table}[!htb]
+\centering
+\caption{Guided single pass minus a selection of the extraction graph at the guided pass's fact count (Qwen on 2Wiki, 60 shard $\times$ run seed units; grounded QA, differences in points with 95\% intervals). Status gives the outcome of the registered test of whether the selection scores above the guided pass. The selectors read no questions or gold relations; one arm reads the unit's CQs.}
+\label{tab:selection}
+\scriptsize\setlength{\tabcolsep}{3pt}
+\begin{tabular}{llcl}
+\toprule
+Selection & Relation list & Guided $-$ selection & Status \\
+\midrule
+Entity centrality & none & +14.4 [9.5, 19.5] & Reg.: guided higher \\
+Relation frequency & none & $-$8.0 [$-$13.3, $-$2.7] & Reg.: selection higher \\
+Entity centrality & seeded & +25.8 [20.5, 30.5] & Reg.: guided higher \\
+Relation frequency & seeded & +16.6 [11.4, 22.1] & Reg.: guided higher \\
+Chain-preserving & seeded & +25.0 [19.8, 30.1] & Reg.: guided higher \\
+Model-scored & seeded & +14.3 [8.9, 19.3] & Reg.: guided higher \\
+CQ-selected & seeded & +33.3 [28.3, 37.7] & Reg.: guided higher \\
+Chunk-balanced & seeded & +37.2 [31.6, 41.4] & Reg.: guided higher \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Hybrid QA and CQ count}
+\label{sec:res-hybrid}
+Table~\ref{tab:exp9other} gives the CQ-count settings. On the Exp7 graphs (Qwen, 2Wiki), hybrid QA scored above vector-only QA (.502 [.460, .544]) in every pipeline (Table~\ref{tab:newchecks}); the run with 60 graph facts is reported in Section~\ref{sec:res-cost}. In Exp8, four times as many CQs at the same budget raised KG-only QA in all four settings (Table~\ref{tab:exp9}); hybrid QA, the registered primary measure, did not separate from the 40-CQ reference.
+
+
+\subsection{Evaluation-guided repair}
+\label{sec:res-loop}
+Iterative CQ generation in Exp2 grew the CQ set from 12.0 to 85.8 per shard and evidence recall from .093 to .377 (Table~\ref{tab:glance}). Evaluation-chosen patches scored 1.9 points above random patches ([$-$1.6, 5.3]). Exp5 repaired queries first and patched only graph-side failures, gating each patch on reserved curation CQs and never on held-out questions; evaluation-chosen patches again did not improve on random patches ($-$0.3; upper bound 3.1, margin 5).
+
+\subsection{Combined pipeline versus the loop}
+In Exp7 the combined pipeline and LOOP+seed (Table~\ref{tab:exp8}) used 838k and 878k tokens in Qwen. Without a per-question triple cap the combined pipeline led in all three models, and at equal fact counts the lead shrank to 0.3 to 1.1 points (Table~\ref{tab:equalcount}). In Qwen, capped recall favoured the loop (Table~\ref{tab:glance}). On T-REx with Gemma, neither registered contrast was established (Table~\ref{tab:replication}).
+
+\begin{table}[!htb]
+\centering
+\caption{Exp7: recall lead of the combined pipeline over LOOP+seed, in points with 95\% intervals; uncapped means without a per-question triple cap. Intervals resample shard $\times$ run seed units by shard.}
+\label{tab:equalcount}
+\scriptsize\setlength{\tabcolsep}{2.5pt}
+\begin{tabular}{lccc}
+\toprule
+Model & Units & Uncapped recall lead & At equal fact counts \\
+\midrule
+Qwen & 60 & +5.6 [4.2, 7.0] & +1.1 [0.5, 1.9] \\
+Gemma & 60 & +9.2 [7.6, 11.4] & +0.3 [$-$0.6, 1.1] \\
+Nemotron & 41 & +13.1 [8.9, 16.8] & +0.3 [$-$0.5, 1.3] \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Further checks}
+Of the 2,196 gold evidence facts in the Exp2 graphs, 860 were reproduced exactly, 74 had a wrong value, 96 were split across entities and 1,166 were missing. Omissions made up 87.3\% of the 1,336 inexact facts. SHACL shapes~\cite{knublauch2017shacl} flagged 0.15\% of the inexact facts ([0, 0.37]) and 25.1\% of correct facts.
+
+\paragraph{Exp3.} The fixed relation list scored higher than prompt optimisation with MIPROv2 or GEPA on 400 test questions, with and without matching the number of triples (Table~\ref{tab:exp3}, arm means).
+
+\begin{table}[!htb]
+\centering
+\caption{Exp3 evidence recall on 400 test questions. The last column equalises the number of triples across arms.}
+\label{tab:exp3}
+\small\setlength{\tabcolsep}{3.5pt}
+\begin{tabular}{lcc}
+\toprule
+ & Recall & Recall, equal triples \\
+\midrule
+Relation list & .425 & .411 \\
+MIPROv2 & .363 & .255 \\
+GEPA & .356 & .337 \\
+Default prompt & --- & .181 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{Exp1.} Iterative CQ refinement raised the gold ASK-query pass rate over no refinement on building-ontology questions (+21.4 points, [16.2, 27.1], 35 test questions; positive by construction).
+
+

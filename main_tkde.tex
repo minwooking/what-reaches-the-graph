@@ -1,0 +1,70 @@
+%% IEEE TKDE (Transactions on Knowledge and Data Engineering) format
+%% Build: latexmk -pdf main_tkde.tex
+\documentclass[10pt,journal,compsoc]{IEEEtran}
+
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{url}
+\usepackage[nocompress]{cite}
+\usepackage{enumitem}
+\setlist{itemsep=1pt,topsep=3pt,parsep=0pt}
+\newcolumntype{P}[1]{>{\raggedright\arraybackslash}p{#1}}
+\emergencystretch=3em
+
+% Figures produced separately appear in figures/. The build passes before they exist.
+\newcommand{\figseedref}{\IfFileExists{figures/fig_seed_forest_r62.pdf}{, Fig.~\ref{fig:seedforest}}{}}
+\newcommand{\figcostref}{\IfFileExists{figures/fig_cost_quality_r64.pdf}{, Fig.~\ref{fig:costquality}}{}}
+
+\begin{document}
+
+\title{What Reaches the Graph Decides Held-Out Question Answering in Knowledge Graph Construction}
+
+\author{[AUTHOR: First Author]
+        and~[AUTHOR: Second Author]% <-this % stops a space
+\IEEEcompsocitemizethanks{\IEEEcompsocthanksitem First Author and Second Author are with the Department of Computer Science and Engineering, Institution Name, City, Country.\protect\\
+E-mail: \{first.author, second.author\}@institution.edu
+}% <-this % stops an unwanted space
+\thanks{Manuscript received Month DD, YYYY; revised Month DD, YYYY.}}
+
+% The paper headers
+\markboth{IEEE Transactions on Knowledge and Data Engineering,~Vol.~XX, No.~X, Month~2026}%
+{Author \MakeLowercase{\textit{et al.}}: What Reaches the Graph Decides Held-Out Question Answering}
+
+\IEEEtitleabstractindextext{%
+\input{sections/abstract}
+
+\begin{IEEEkeywords}
+Competency questions, knowledge graph construction, question answering, relation vocabulary.
+\end{IEEEkeywords}}
+
+\maketitle
+
+\IEEEdisplaynontitleabstractindextext
+\IEEEpeerreviewmaketitle
+
+\input{sections/introduction}
+\input{sections/related}
+\input{sections/pipeline}
+\input{sections/design}
+\input{sections/results}
+\input{sections/discussion}
+\input{sections/conclusion}
+
+\bibliographystyle{IEEEtran}
+\bibliography{references}
+
+\appendices
+\input{sections/appendix}
+
+\begin{IEEEbiographynophoto}{First Author}
+Biography text here.
+\end{IEEEbiographynophoto}
+
+\begin{IEEEbiographynophoto}{Second Author}
+Biography text here.
+\end{IEEEbiographynophoto}
+
+\end{document}

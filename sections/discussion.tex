@@ -1,0 +1,11 @@
+\section{Discussion}
+\label{sec:discussion}
+
+\paragraph{A relation list lifts extraction.}
+The relation list raised grounded QA in every Exp7 pipeline on 2Wiki. Neither gold relations nor the exact names were needed, since synonyms, a corpus-induced list and lists induced outside the evaluation shards raised the single pass on both corpora (Section~\ref{sec:res-schema}). In one draw of names, a partial list of 6 of the 22 names scored below no list (post hoc, descriptive); the full list and the induced lists, which cover most gold relations, raised every pipeline.
+
+\paragraph{Seeded extraction against the combined pipeline and the public extractors.}
+The gap in grounded QA between seeded extraction and the combined pipeline (Section~\ref{sec:res-cost}) is an added-arm, descriptive contrast whose post hoc 90\% interval [$-$2.6, 3.0] contains zero; the precision of seeded extraction passed the registered non-inferiority test (.925 against .716). The public extractors received no relation list, except in one run with the list (Section~\ref{sec:res-cost}). iText2KG wrote the most facts of any arm yet scored below seeded extraction (Table~\ref{tab:itext}), so writing more facts did not by itself deliver that score. On 2Wiki the listed graph answered more questions correctly than retrieval over the same chunks, while the list given to retrieval as a hint did not raise answer correctness.
+
+\paragraph{At a fixed fact count, CQ-guided facts scored higher.}
+At equal fact count and with the relation list, the CQ-guided single pass scored above a uniform random subset of seeded extraction, on the multi-hop corpus (Section~\ref{sec:res-cqs}) and on T-REx. It also scored above two heuristic subsets of the same graph at the same fact count, one keeping the facts of the most frequent relations and one the facts whose end entities are most central, and above a chain-preserving and a model-scored selector (registered; Appendix Table~\ref{tab:selection}).

@@ -1,0 +1,17 @@
+\section{Related Work}
+\label{sec:related}
+
+\paragraph{Competency questions and LLM-assisted ontology engineering.}
+Competency questions fix the scope of an ontology before it is built~\cite{gruninger1995methodology,noy2001ontology101}. LLM tools now elicit CQs (OntoChat~\cite{zhang2024ontochat}), draft OWL ontologies from CQs (Ontogenia~\cite{lippolis2025ontogenia}) and verify CQs against an ontology (OE-Assist~\cite{lippolis2025oeassist}). IDEA2 keeps an expert in the loop~\cite{watkissleek2026idea2}.
+
+\paragraph{From CQs to knowledge graphs.}
+Feng et al.\ derive relations from CQs and ground graph construction in the resulting ontology~\cite{feng2024ontologygrounded}. HyDRA builds an ontology from CQs that agents agree on~\cite{kaiser2025hydra}, and SocraticKG expands each passage into question--answer pairs before extraction~\cite{choi2026socratickg}.
+
+\paragraph{Iterative repair and prompt optimisation.}
+TCR-QF, EvoOntology and OaK repair a graph or an ontology over several rounds~\cite{huang2025tcrqf,chong2026evoontology,zhang2026oak}. A controlled study of ontology generation from insurance contracts found no gain from iterative repair in a single-agent baseline~\cite{talukder2026multiagent}. DSPy, MIPROv2 and GEPA optimise prompts against a metric~\cite{khattab2023dspy,opsahlong2024mipro,agrawal2025gepa} and have been applied to triple extraction and ontology learning~\cite{mihindukulasooriya2025apo,mai2026apolo}.
+
+\paragraph{Text-to-KG extraction and KG-augmented QA.}
+iText2KG builds graphs incrementally without a fixed schema~\cite{lairgi2024itext2kg}, and we compare it with our extraction in the same setup (Section~\ref{sec:res-cost}). KGGen~\cite{mo2025kggen} measures extraction, Text2KGBench scores extraction when the ontology is given~\cite{mihindukulasooriya2023text2kgbench}, and GraphRAG combines an entity graph with community summaries for retrieval~\cite{edge2024graphrag}.
+
+\paragraph{Schema-guided extraction, schema induction and QA-based evaluation.}
+CodeKGC encodes a pre-defined entity and relation schema in code prompts~\cite{bi2024codekgc}. KnowCoder represents schemas, among them 876 relation types, as code classes that the model follows~\cite{li2024knowcoder}, and GoLLIE reports that label definitions and guidelines in the schema are central to zero-shot extraction~\cite{sainz2024gollie}. EDC (Extract, Define, Canonicalize) runs with a pre-defined target schema or one it induces and canonicalises itself~\cite{zhang2024edc}, and we score that self-induced mode in our setup (Section~\ref{sec:res-cost}). AutoSchemaKG induces a schema from text and reports multi-hop QA gains~\cite{bai2026autoschemakg}; we score it in our setup as well (Section~\ref{sec:res-cost}). HippoRAG scores a schemaless OpenIE graph by multi-hop QA~\cite{gutierrez2024hipporag}. These studies show that a supplied or induced schema steers extraction~\cite{sainz2024gollie,li2024knowcoder,zhang2024edc,bai2026autoschemakg}. Within one pipeline at equal volume we separate the relation vocabulary from the competency-question machinery. A vocabulary induced from the corpus without gold carries the gain on two corpora. With a relation list, extraction without competency questions is not distinguishable from the combined pipeline's grounded question answering and uses fewer tokens (Section~\ref{sec:res-cost}).

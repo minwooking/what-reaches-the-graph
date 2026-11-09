@@ -1,0 +1,20 @@
+# LaTeX build artifacts
+*.aux
+*.bbl
+*.blg
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.synctex.gz
+
+# Python cache
+__pycache__/
+*.py[cod]
+
+# OS / Editor artifacts
+.DS_Store
+*.swp
+*~
+.vscode/
+.idea/
