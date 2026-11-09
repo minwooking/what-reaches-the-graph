@@ -1,0 +1,74 @@
+%% IEEE Access conversion of the cq_dissection paper (round 34).
+%% Build: TEXINPUTS=".:" BSTINPUTS=".:" latexmk -pdf main.tex   (inside review/challenger_r34)
+%% Template kit (ieeeaccess.cls, spotcolor.sty, IEEEtran.bst, logos, t1-* fonts) copied unmodified
+%% from paper/access2026.
+\documentclass{ieeeaccess}
+
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{url}
+\usepackage{enumitem}
+\setlist{itemsep=1pt,topsep=3pt,parsep=0pt}
+\newcolumntype{P}[1]{>{\raggedright\arraybackslash}p{#1}}
+\emergencystretch=3em
+\renewcommand{\topfraction}{0.95}\renewcommand{\bottomfraction}{0.95}\renewcommand{\textfraction}{0.05}\renewcommand{\floatpagefraction}{0.8}\renewcommand{\dbltopfraction}{0.95}\setcounter{topnumber}{4}\setcounter{bottomnumber}{3}\setcounter{totalnumber}{8}\setcounter{dbltopnumber}{4}
+
+% Figures produced separately appear in paper/cq_dissection/figures/. The build passes before they exist.
+\newcommand{\figseedref}{\IfFileExists{figures/fig_seed_forest_r62.pdf}{, Fig.~\ref{fig:seedforest}}{}}
+\newcommand{\figcostref}{\IfFileExists{figures/fig_cost_quality_r64.pdf}{, Fig.~\ref{fig:costquality}}{}}
+
+\begin{document}
+\setlength{\textfloatsep}{7pt plus 2pt minus 2pt}
+\setlength{\intextsep}{7pt plus 2pt minus 2pt}
+\setlength{\dbltextfloatsep}{7pt plus 2pt minus 2pt}
+\setlength{\abovedisplayskip}{6pt plus 2pt minus 2pt}
+\setlength{\belowdisplayskip}{6pt plus 2pt minus 2pt}
+
+\vol{14}\year{2026}
+\history{Date of publication xxxx 00, 0000, date of current version xxxx 00, 0000.}
+\doi{10.1109/ACCESS.2026.0000000}
+
+\title{What Reaches the Graph Decides Held-Out Question Answering in Knowledge Graph Construction}
+
+% [AUTHOR: names, affiliations, ORCID, corresponding author, funding statement and biographies are required before submission.]
+\author{\uppercase{[AUTHOR: First Author]}\authorrefmark{1}, \uppercase{[AUTHOR: Second Author]}\authorrefmark{2}}
+\address[1]{[AUTHOR: affiliation and e-mail]}
+\address[2]{[AUTHOR: affiliation and e-mail]}
+\tfootnote{[AUTHOR: funding statement]}
+
+\markboth{[AUTHOR: Author] \emph{et al.}: What Reaches the Graph Decides Held-Out Question Answering}
+{[AUTHOR: Author] \emph{et al.}: What Reaches the Graph Decides Held-Out Question Answering}
+
+\corresp{Corresponding author: [AUTHOR: name] (e-mail: [AUTHOR: e-mail]).}
+
+\input{sections/abstract}
+
+\begin{keywords}
+Competency questions, knowledge graph construction, question answering, relation vocabulary
+\end{keywords}
+
+\titlepgskip=-15pt
+
+\maketitle
+
+\input{sections/introduction}
+\input{sections/related}
+\input{sections/pipeline}
+\input{sections/design}
+\input{sections/results}
+\input{sections/discussion}
+\input{sections/conclusion}
+
+\bibliographystyle{IEEEtran}
+\bibliography{references}
+
+\appendices
+\input{sections/appendix}
+
+% [AUTHOR: biographies of the authors (IEEEbiography blocks), then \EOD]
+\EOD
+
+\end{document}
