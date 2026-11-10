@@ -2,30 +2,6 @@
 \section{Additional Results and Records}
 \label{app:experiments}
 
-\begin{table*}[!t]
-\centering
-\caption{Results at a glance. Values are differences in points unless marked; $n$ is the number of shards (two run seeds averaged within a shard where used). Status is the contrast's standing in the plan. A dash means the contrast was not repeated. For the equal-fact-count rows, the registered test asks whether the selection scores above the guided pass, and the status reports that it did not.}
-\label{tab:glance}
-\scriptsize\setlength{\tabcolsep}{2pt}
-\begin{tabular}{P{3.7cm}P{0.9cm}P{1.4cm}P{3.0cm}P{6.0cm}P{0.6cm}P{2.3cm}}
-\toprule
-Claim & Exp & Model, corpus & Contrast & Value [95\% interval] & $n$ & Status \\
-\midrule
-The list raises grounded QA & Exp7 & Qwen, 2Wiki & With vs.\ without list, four pipelines & L0 +14.7 [10.9, 18.4]; LOOP +9.4 [6.4, 12.2]; combined +9.3 [6.0, 12.1]; U-ext +4.5 [0.7, 8.8] & 30 & Descriptive (intervals only) \\
-Synonym list, answer correctness & Exp7 & Qwen, 2Wiki & Synonym list $-$ no list & L0 +15.4 [11.3, 19.5]; U-ext +1.6 [$-$1.4, 4.2] & 30 & Registered: improved (L0); not established (U-ext) \\
-Equal fact count: guided single pass above random subset of U-ext & Exp7 & Qwen, 2Wiki & L0 $-$ random subset of U-ext at L0's fact count; with seed, L0+seed $-$ random subset of U-ext+seed, QA & +28.2 [23.4, 33.2]; +39.1 [34.2, 44.1] & 30 & Registered: random subset not above the guided pass (both) \\
-Expansion raises grounded QA & Exp4, Exp5 & Qwen, 2Wiki & G $-$ L0 & +9.1 [4.7, 13.8]; +9.6 [5.2, 14.8] & 40; 24 & Post hoc secondary \\
-Iteration did not separate from one batch of the same CQs & Exp2 & Qwen, 2Wiki & Iteration $-$ one batch, recall & +1.2 [$-$3.5, 5.7], crossed shard $\times$ run seed interval & 24 & Registered primary (inconclusive) \\
-Hybrid QA: no detectable change at 1$\times$, lower at 4$\times$ budget in Qwen on 2Wiki & Exp8 & as above & 160 vs.\ 40 CQs, 1$\times$ & $-$3.6 to +0.6, all intervals include 0 (Table~\ref{tab:exp9}). At 4$\times$ budget, Qwen 2Wiki $-$9.1 [$-$13.8, $-$5.5] & 20--33 & Registered primary \\
-More CQs raise KG-only QA & Exp8 & Qwen, Gemma; 2Wiki, T-REx & 160 vs.\ 40 CQs, 1$\times$ & +3.5 to +10.9, all intervals above 0 (Table~\ref{tab:exp9}) & 20--33 & Secondary measure \\
-Guided repair not improved over random & Exp4, Exp5 & Qwen, 2Wiki & Guided $-$ random patches, QA & +1.9 [$-$1.6, 5.3]; $-$0.3, one-sided upper bound 3.1 & 40; 24 & Exp5 primary, margin 5; Exp4 inconclusive \\
-Combined pipeline leads loop on uncapped recall and recall at equal fact counts, trails on capped recall & Exp7 & Qwen, 2Wiki & Combined $-$ LOOP+seed, recall & Uncapped +5.6 [4.2, 7.0]; capped $-$8.7 [$-$10.6, $-$6.8]; equal fact counts +1.1 [0.5, 1.9] & 30 & Registered primary (uncapped); matching in plan \\
-Seeded extraction without CQs was not distinguishable from the combined pipeline & Exp7 & Qwen, 2Wiki & Combined $-$ U-ext+seed, QA & +0.3 [$-$3.1, 3.5]; 106k against 838k tokens per unit; answer correctness, seeded extraction higher by 2.3 [$-$0.2, 4.4] (post hoc) & 30 & Added arm \\
-Combined pipeline passes more fresh CQs than seeded extraction without CQs & Exp7 & Qwen, 2Wiki & Combined $-$ U-ext+seed, fresh-CQ pass rate & +13.5 [10.7, 16.3]; LLM judge of the builder's family & 30 & Secondary, in the Exp7 plan; added arm \\
-Most inexact gold facts are omissions & Exp6 & Qwen, 2Wiki & Omission share of inexact gold facts & 87.3\% of 1,336 & --- & Analysis of Exp2 graphs \\
-\bottomrule
-\end{tabular}
-\end{table*}
 
 \begin{table*}[!ht]
 \centering
@@ -86,7 +62,7 @@ Exp7 design on T-REx, combined $-$ L0+seed & --- & +2.7 [$-$0.4, 5.8], not estab
 
 \begin{table*}[!ht]
 \centering
-\caption{Checks added after the main study, Qwen. Hybrid QA with up to 30 graph facts against vector-only QA (.502 [.460, .544]) and fact precision judged by Gemma, both on the 2Wiki Exp7 graphs (points, 95\% intervals, 30 shards); grounded QA, class-aligned recall and tokens per unit (thousands) for the Exp7 arms on T-REx (33 shards, one run seed). Precision was not measured for L0.}
+\caption{Checks added after the main study, Qwen. Hybrid QA with up to 30 graph facts against vector-only QA (.502 [.460, .544]) and fact precision judged by Gemma, both on the 2Wiki Exp7 graphs (points, 95\% intervals, 30 shards, 60 units); grounded QA, class-aligned recall and tokens per unit (thousands) for the Exp7 arms on T-REx (33 shards, one run seed). Precision was not measured for L0.}
 \label{tab:newchecks}
 \scriptsize\setlength{\tabcolsep}{2.5pt}
 \begin{tabular}{lcccccc}
@@ -125,7 +101,7 @@ Class-aligned recall fell under synonyms, as name alignment predicts. In U-ext t
 
 \begin{table}[!htb]
 \centering
-\caption{Post hoc list effect in points (95\% BCa intervals, 30 shards), Exp7. Class-free recall ignores relation classes when matching triples to gold; answer correctness drops the grounding requirement.}
+\caption{Post hoc list effect in points (95\% BCa intervals, 30 shards, 60 units), Exp7. Class-free recall ignores relation classes when matching triples to gold; answer correctness drops the grounding requirement.}
 \label{tab:seedalign}
 \scriptsize\setlength{\tabcolsep}{2.5pt}
 \begin{tabular}{lccc}
@@ -141,7 +117,7 @@ U-ext & +2.1 [1.0, 3.5] & +0.6 [$-$0.7, 2.3] & +3.0 [0.0, 6.6] \\
 \end{table}
 
 \subsection{Seeded extraction against the combined pipeline}
-A post hoc 90\% interval of [$-$2.6, 3.0] around the difference in grounded QA (Section~\ref{sec:res-cost}) excludes differences beyond about 3 points in either direction. On T-REx the combined pipeline found more gold evidence (class-aligned recall +4.4, 90\% [3.0, 6.0]).
+A post hoc 90\% interval of [$-$3.0, 2.6] around the difference in grounded QA (Section~\ref{sec:res-cost}) excludes differences beyond about 3 points in either direction. On T-REx the combined pipeline found more gold evidence (class-aligned recall +4.4, 90\% [3.0, 6.0]).
 
 \subsection{Fact-count check and coverage}
 With the list, U-ext raised grounded QA over L0+seed by 6.3 points ([2.6, 9.4], post hoc).
@@ -222,3 +198,24 @@ Default prompt & --- & .181 \\
 \paragraph{Exp1.} Iterative CQ refinement raised the gold ASK-query pass rate over no refinement on building-ontology questions (+21.4 points, [16.2, 27.1], 35 test questions; positive by construction).
 
 
+
+
+\subsection{Registration records and run details}
+\label{app:registration}
+\paragraph{Plans and labels.}
+Each experiment has a plan, fixed before the main run, that states hypotheses and decision rules, and a deviation log that we kept during the run. The list comparisons in Exp7 are descriptive intervals, and G$-$L0 in Exp4 and Exp5 (Table~\ref{tab:arms}) is a post hoc secondary contrast. U-ext+seed is an arm added after an internal review and run under its own addendum. The comparison of iText2KG with the Exp7 arms was registered, and its outputs are descriptive; the comparisons with EDC and AutoSchemaKG were registered as descriptive, except EDC with the list (registered, Holm-corrected). Decisions use the labels of each plan: \emph{improved}, \emph{not improved} and \emph{not established}. An interval that includes zero is reported as \emph{did not separate}. The plan for the chunk-retrieval comparison registered answer correctness as the measure.
+
+\paragraph{Checks added after the main study.}
+Eight checks added after the main study each had a plan fixed before its run: the synonym list, fact precision, vector versus hybrid QA, the Exp7 arms on T-REx, the subsets at equal fact count, the induced list, the list induced outside the evaluation shards and the share of the list given. A further check compares chunk retrieval with the graph. The synonym-list check replaces the 22 names by synonym phrases; its hypotheses are registered and its vocabulary-adoption measure is post hoc. Its comparison arms are the stored Exp7 runs, and a rerun of four arms on the same instance reproduced the stored values. Hypotheses and analysis were fixed before each check. Fact precision has a registered non-inferiority contrast (margin $-$5 points). On T-REx, the Exp7 arms have a registered equivalence test (margin $\pm$3 points); seeded extraction led the combined pipeline there, so the test did not establish equivalence. In Exp8, the hybrid-QA contrasts are registered and only the analysis of why hybrid QA fell is post hoc; KG-only QA and evidence recall are secondary measures.
+
+\paragraph{Serving instances.}
+The 60-fact hybrid run, the outside-shard list run and the EDC run with the list used another serving instance than the stored arms they are compared with; the instance changed during the hybrid and outside-shard runs and after the first 12 EDC units. The same arm differed between serving instances (no list .433 stored, .417 rerun), so contrasts are taken within one instance where possible. The retrieval comparison reran seeded extraction on the retrieval arms' own serving engine (.669 against .678 in the stored run). The selector arms of the equal-fact-count check ran on a different serving engine from the stored guided-pass arm. The reruns of the dose check (Table~\ref{tab:seeddose}) all come from one instance; the stored Exp7 values come from another.
+
+\paragraph{List induction.}
+For the induced list an LLM proposed relation names from 300 chunks of the corpus being built and the proposals were merged into 22 names. No question and no gold relation was used. On T-REx a list of 22 names was induced the same way from 300 of the 386 evaluation-corpus passages, again with no questions and no gold relations. The induction therefore read passages of the corpus that is later queried (a transductive setting), and 4 of its 22 names match the 2Wiki list exactly. The list induced outside the evaluation shards was built with the same procedure from 96 passages outside the evaluation shards, so no evaluation passage and no question was read; 15 of its 22 names match the first T-REx list and 6 match the 2Wiki list. It gave +7.4 points of grounded QA over no list in the single pass (Section~\ref{sec:res-schema}).
+
+\paragraph{Statistics.}
+Intervals resample 30 shards on 2Wiki (two run seeds averaged within a shard, 60 units) and 33 shards on T-REx per run seed. Intervals are two-sided 95\% unless marked one-sided or post hoc 90\%. P-values from 10,000 resamples have a floor of 1/10,001. Post hoc analyses reuse the stored predictions and make no new model calls.
+
+\paragraph{Status of contrasts reported in Sections~\ref{sec:res-schema} to~\ref{sec:res-cqs}.}
+Registered, improved, with Holm-adjusted $p$: synonym list in L0, answer correctness (0.0002); induced list in L0, answer correctness (0.001); outside-shard list on T-REx, grounded QA (0.0001); outside-shard list on 2Wiki, grounded QA (0.0002); the T-REx single pass against an equal-size random subset of seeded extraction (0.001); guided pass against the chain-preserving selector and the model selector (both 0.0002); against the selection by the unit's CQs (0.0004) and the chunk-balanced selection (0.0005); seeded extraction against EDC with the list (0.0003); the T-REx single pass with the induced list over no list, grounded QA and answer correctness, in both run seeds (Table~\ref{tab:trexseed}). Registered, improved at the boundary: extraction from every chunk with the outside-shard 2Wiki list, grounded QA (+3.1 [0.0, 6.5]). Registered, not established: extraction from every chunk with the outside-shard 2Wiki list, answer correctness (+1.7 [$-$1.0, 4.2]); EDC with against without the list (+0.4 [$-$2.7, 2.9]); on T-REx without the list, the guided pass against a random subset (6.6 [$-$5.8, 12.2]). In the dose check, 11 of 22 names against no list is registered, improved (+10.5 [5.5, 14.5]); the dip at 6 names is a post hoc observation. In the equal-fact-count check without the list, the contrast of the relation-frequency selection above the guided pass (+8.0 [2.7, 13.3]) is registered. The gain of U-ext over L0 without the list (+16.5 [10.6, 21.7]) is post hoc. Seeded extraction against the combined pipeline on 2Wiki is an added arm with a descriptive interval; the answer-correctness contrast (+2.3 [$-$0.2, 4.4]) and its 90\% interval [$-$3.0, 2.6] are post hoc. The comparisons of public extractors with Exp7 arms, the rerun of the original list beside the induced list, the reach rates and the context-free answer model are descriptive; the relation-class requirement and the relaxed entity linking are post hoc reanalyses of the stored predictions and graphs. Chunk-retrieval comparisons (graph against chunk retrieval and list-hinted retrieval) are registered, improved; the raise of the fact cap from 30 to 60 in hybrid QA (U-ext+seed, Combined) is registered, improved in answer correctness.
