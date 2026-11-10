@@ -3,7 +3,7 @@
 \subsection{The Curation Pipeline and Its Components}
 \label{sec:pipeline}
 
-All experiments use one pipeline family, which reads a corpus split into chunks and produces an OWL-style schema (TBox) and a set of facts (ABox) stored as RDF. Formally, a constructed knowledge graph is represented as $G = (V, E)$, where $V$ denotes the set of entity vertices and $E \subseteq V \times \mathcal{R} \times V$ denotes directed relational edges labeled by predicates from a relation vocabulary $\mathcal{R}$. Figure~\ref{fig:pipeline} shows the five stages, and Table~\ref{tab:experiments} lists the studies, Exp1 to Exp8.
+All experiments use one pipeline family, which reads a corpus split into chunks and produces a Web Ontology Language (OWL) style schema (TBox) and a set of facts (ABox) stored as Resource Description Framework (RDF) triples. Formally, a constructed knowledge graph is represented as $G = (V, E)$, where $V$ denotes the set of entity vertices and $E \subseteq V \times \mathcal{R} \times V$ denotes directed relational edges labeled by predicates from a relation vocabulary $\mathcal{R}$. Figure~\ref{fig:pipeline} shows the five stages, and Table~\ref{tab:experiments} lists the studies, Exp1 to Exp8.
 
 \begin{figure*}[t]
 \centering
@@ -17,7 +17,7 @@ All experiments use one pipeline family, which reads a corpus split into chunks 
   \item \emph{CQ generation.} The generator reads a batch of chunks and writes questions that a reader of those chunks should be able to answer. Each CQ, a question generated from a chunk, keeps its source chunk and an expected answer span, which code checks against the chunk.
   \item \emph{Schema derivation.} Classes and properties are derived from the CQs.
   \item \emph{Extraction.} Facts are extracted chunk by chunk, guided by the current schema. Every fact keeps the chunk it came from.
-  \item \emph{CQ evaluation.} Each CQ is translated to SPARQL and run against the graph. A deterministic rule first checks that the expected span appears in the result rows. An LLM judge then grades the answer 0, 1 or 2.
+  \item \emph{CQ evaluation.} Each CQ is translated to SPARQL Protocol and RDF Query Language (SPARQL) queries and run against the graph. A deterministic rule first checks that the expected span appears in the result rows. An LLM judge then grades the answer 0, 1 or 2.
   \item \emph{Repair.} Failed CQs are attributed either to the query or to the graph. Graph-side failures produce patches (added facts, merged entities, corrected values or new properties). A gate scores each patch on a reserved set of curation CQs, never on held-out questions, and accepts or rejects it.
 \end{enumerate}
 
