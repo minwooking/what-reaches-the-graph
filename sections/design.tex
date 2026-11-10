@@ -29,9 +29,6 @@ Third model & Nemotron (Exp5, Exp7 and T-REx; Appendix Table~\ref{tab:replicatio
 \end{tabular}
 \end{table*}
 
-\paragraph{Exp8 arms.}
-The reference arm uses 40 CQs at the 1$\times$ token budget. For each shard the budget comes from a reference run, and an arm stops after using 95\% of it. Other arms are named by CQ count and budget: 160 CQs at 1$\times$, 160 CQs at 4$\times$ and 40 CQs at 4$\times$. The source check is on in the 40-CQ and 160-CQ arms. Each generated CQ is embedded with Qwen3-Embedding-0.6B and compared with the top 5 retrieved chunks, and a CQ that fails is regenerated up to 3 times.
-
 \paragraph{Metrics.}
 Evidence recall and all QA measures are scored by code against gold. An LLM judge is used in three places. The builder's own model family (Qwen3.8-Flash-Next) judges the pipeline's internal CQ evaluation (stage 4) and the pass rate of fresh CQs, and a model from the other family judges precision in Exp8. Gemma judges Qwen graphs and Qwen judges Gemma graphs, and the CQ checks use the builder's family.
 \begin{itemize}
@@ -40,7 +37,7 @@ Evidence recall and all QA measures are scored by code against gold. An LLM judg
   \item \emph{Grounded QA} asks a model to answer each held-out question from facts retrieved from the graph. Given an input query $q$ and graph $G$, let $R(q, G) \subseteq G$ denote the retrieved supporting fact subgraph. The grounded correctness indicator $\mathbb{I}_{\text{gc}}(q) \in \{0, 1\}$ evaluates whether the answer generated from $R(q, G)$ is correct and grounded in the retrieved facts. Grounded QA over a set $Q$ of held-out questions is $\frac{1}{|Q|}\sum_{q \in Q} \mathbb{I}_{\text{gc}}(q)$. For comparison questions every gold evidence pair (subject and object, in either direction) must appear in a retrieved fact that cites a chunk containing the evidence. For open questions the gold answer must appear as the subject or object of a retrieved fact. The relation name plays no part in grounded QA; relation classes enter only evidence recall (class-aligned recall). QA-time retrieval is the same for every arm and does not use the list: the question is linked to entity labels (with aliases) by exact n-gram matching, the graph is followed for up to two hops, each entity contributes at most 25 facts ranked by BM25, and the facts in $R(q, G)$ are ordered by hop, then BM25, and capped at 60.
   \item The \emph{pass rate of fresh CQs} (Exp7) uses 40 new CQs per shard and run seed. They are written from 40 random chunks with a neutral prompt and no relation list, and no loop uses them.
   \item For each final graph, SPARQL is generated three times for each fresh CQ. A query passes when it returns at most 20 rows, the expected answer span is among them and the judge scores it 2. The pass rate is the mean over the three generations. 
-  \item In Exp8, KG-only QA gives the answerer graph facts only. Hybrid QA gives it up to 30 graph facts (main run; a rerun used up to 60) and the top 3 retrieved passages, and \emph{vector QA} gives it the top 5 passages. Measure F2 takes the vector answer unless it abstains, and then the KG-only answer.
+  \item \emph{Hybrid QA} gives the answerer up to 30 graph facts (main run; a rerun used up to 60) and the top 3 retrieved passages, and \emph{vector QA} gives it the top 5 passages. Exp8's KG-only QA and its measure F2 are defined in Appendix~\ref{app:exp8def}.
   \item \emph{Precision} is judged on 40 sampled facts per graph by the cross-family judge. Gold evidence covers only the facts that questions need, so unaligned triples are not counted as errors. In the fact precision check on the Exp7 graphs, Gemma judges Qwen facts in one pass.
 \end{itemize}
 

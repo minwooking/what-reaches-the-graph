@@ -31,7 +31,10 @@ Every study except the Exp6 error analysis changes one of the following componen
   \item[Budget and extraction passes.] The total number of tokens, and how the remainder is spent. In the combined pipeline, tokens left after expansion go to additional full-corpus extraction passes that ask for facts missing from the current graph.
 \end{description}
 
-Table~\ref{tab:arms} defines every arm. The \emph{combined pipeline} (``Combined'' in tables) starts from the relation list, and a \emph{+seed} suffix on any other arm name means the same pipeline run with that list.
+\paragraph{Where the 22 names come from.}
+The original list is the set of relation types with a share of at least 0.1\% in the evidence inventory of the training split, which gives 22 names. An induced list uses no question and no gold relation. The extraction model reads 300 randomly sampled passages (title and first 1,200 characters) in 20 batches of 15 and proposes up to 15 relation names per batch, and the names are normalised to one to four lowercase words. The 80 names proposed in the most batches go to one model call that merges near-duplicates and keeps exactly 22. Induced lists have 22 names so that they equal the size of the original list and differ only in content (Appendix~\ref{app:seednames}).
+
+Table~\ref{tab:arms} defines every arm. The \emph{combined pipeline} (``Combined'' in tables) starts from the relation list, and a \emph{+vocab} suffix on any other arm name means the same pipeline run with that list.
 
 \begin{table*}[t]
 \centering
@@ -42,14 +45,14 @@ Table~\ref{tab:arms} defines every arm. The \emph{combined pipeline} (``Combined
 \toprule
 Arm & Reads and writes & CQs & Where the list enters \\
 \midrule
-L0 & Single pass: chunks $\rightarrow$ 40 CQs $\rightarrow$ schema of at most 36 properties $\rightarrow$ facts extracted from every chunk & yes & CQ generation and schema derivation \\
+L0 (single pass) & Chunks $\rightarrow$ 40 CQs $\rightarrow$ schema of at most 36 properties $\rightarrow$ facts extracted from every chunk & yes & CQ generation and schema derivation \\
 G (Exp4, Exp5) & L0 with the CQ set expanded until every chunk is a CQ source & yes & as L0 \\
 GR (Exp4, Exp5) & G plus evaluate-and-repair rounds & yes & as L0 \\
 LOOP & L0, then three rounds of CQ evaluation and repair with 20 new CQs per round & yes & CQ generation, schema extension and schema patches \\
-Combined & Relation list, CQs expanded to every chunk, an incremental schema with deterministic de-duplication, and extra extraction passes up to the token total of LOOP+seed on the same unit; CQ evaluation only as an acceptance test, no repair step. ``First pass only'' stops after the first full extraction pass & yes & CQ generation, schema derivation and schema extension \\
-U-ext & No CQs and no schema: free-form predicates from every chunk, one call per chunk; the schema is derived afterwards & no & Extraction prompt, after the chunk text and before the instruction (U-ext+seed) \\
-+seed & Any arm above run with the 22-name relation list (L0+seed, LOOP+seed, U-ext+seed; ``Combined'' always has it unless marked no list) & as arm & as in the arm's row \\
-L0+seed$K$ & L0 given $K$ of the 22 names ($K$ = 6, 11, 17; nested random subsets) & yes & CQ generation and schema derivation \\
+Combined & Relation list, CQs expanded to every chunk, an incremental schema with deterministic de-duplication, and extra extraction passes up to the token total of LOOP+vocab on the same unit; CQ evaluation only as an acceptance test, no repair step. ``First pass only'' stops after the first full extraction pass & yes & CQ generation, schema derivation and schema extension \\
+U-ext (extraction without CQs) & No CQs and no schema: free-form predicates from every chunk, one call per chunk; the schema is derived afterwards & no & Extraction prompt, after the chunk text and before the instruction (U-ext+vocab) \\
++vocab & Any arm above run with the 22-name relation list (L0+vocab, LOOP+vocab, and U-ext+vocab, called \emph{seeded extraction}; ``Combined'' always has it unless marked no list) & as arm & as in the arm's row \\
+L0+vocab$K$ & L0 given $K$ of the 22 names ($K$ = 6, 11, 17; nested random subsets) & yes & CQ generation and schema derivation \\
 iText2KG, EDC, AutoSchemaKG & Chunks $\rightarrow$ facts with each public extractor's released defaults and no relation list (EDC also once with the list, Section~\ref{sec:res-cost}); EDC and AutoSchemaKG induce and canonicalise their own schema, and AutoSchemaKG's entity-relation triples are scored & no & none \\
 \bottomrule
 \end{tabular}

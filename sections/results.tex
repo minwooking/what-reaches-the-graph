@@ -16,17 +16,17 @@ The list raises grounded QA & Exp7 & Qwen, 2Wiki & With vs.\ without list, four 
 Synonym list, answer correctness & Exp7 & Qwen, 2Wiki & Synonym list $-$ no list & L0 +15.4 [11.3, 19.5]; U-ext +1.6 [$-$1.4, 4.2] & 30 & Registered: improved (L0); not established (U-ext) \\
 Induced list raises answer correctness & Exp7 & Qwen, 2Wiki; T-REx & Induced list $-$ no list, L0 & 2Wiki +16.3 [11.6, 20.2]; T-REx +12.5 (Table~\ref{tab:trexseed}) & 30; 33 & Registered: improved \\
 List induced outside the evaluation shards raises grounded QA & Exp7 & Qwen, 2Wiki; T-REx & Outside-shard list $-$ no list, L0 & 2Wiki +15.8 [9.6, 21.9]; T-REx +7.4 [3.9, 11.4] & 30; 33 & Registered: improved \\
-Graph above chunk retrieval, answer correctness & Exp7 & Qwen, 2Wiki & U-ext+seed $-$ retrieval of top 5 chunks; with list hint & +15.4 [10.6, 19.8]; +16.9 [11.1, 22.3] & 30 & Registered: improved \\
+Graph above chunk retrieval, answer correctness & Exp7 & Qwen, 2Wiki & U-ext+vocab $-$ retrieval of top 5 chunks; with list hint & +15.4 [10.6, 19.8]; +16.9 [11.1, 22.3] & 30 & Registered: improved \\
 Public extractors without a list below seeded extraction, grounded QA & Exp7 & Qwen, 2Wiki & iText2KG, EDC, AutoSchemaKG $-$ seeded extraction & $-$17.3 [$-$21.0, $-$13.9]; $-$15.8 [$-$19.3, $-$12.3]; $-$39.2 [$-$44.0, $-$34.4]; U-ext without list $-$ EDC +11.4 [7.5, 15.2] & 30 & Descriptive \\
-Equal fact count: guided single pass above random subset of U-ext & Exp7 & Qwen, 2Wiki & L0 $-$ random subset of U-ext at L0's fact count; with seed, L0+seed $-$ random subset of U-ext+seed, QA & +28.2 [23.4, 33.2]; +39.1 [34.2, 44.1] & 30 & Registered: random subset not above the guided pass (both) \\
+Equal fact count: guided single pass above random subset of U-ext & Exp7 & Qwen, 2Wiki & L0 $-$ random subset of U-ext at L0's fact count; with list, L0+vocab $-$ random subset of U-ext+vocab, QA & +28.2 [23.4, 33.2]; +39.1 [34.2, 44.1] & 30 & Registered: random subset not above the guided pass (both) \\
 Expansion raises grounded QA & Exp4, Exp5 & Qwen, 2Wiki & G $-$ L0 & +9.1 [4.7, 13.8]; +9.6 [5.2, 14.8] & 40; 24 & Post hoc secondary \\
 Iteration did not separate from one batch of the same CQs & Exp2 & Qwen, 2Wiki & Iteration $-$ one batch, recall & +1.2 [$-$3.5, 5.7], crossed shard $\times$ run seed interval & 24 & Registered primary (inconclusive) \\
 Hybrid QA: no detectable change at 1$\times$, lower at 4$\times$ budget in Qwen on 2Wiki & Exp8 & as above & 160 vs.\ 40 CQs, 1$\times$ & $-$3.6 to +0.6, all intervals include 0 (Table~\ref{tab:exp9}). At 4$\times$ budget, Qwen 2Wiki $-$9.1 [$-$13.8, $-$5.5] & 20--33 & Registered primary \\
 More CQs raise KG-only QA & Exp8 & Qwen, Gemma; 2Wiki, T-REx & 160 vs.\ 40 CQs, 1$\times$ & +3.5 to +10.9, all intervals above 0 (Table~\ref{tab:exp9}) & 20--33 & Secondary measure \\
 Guided repair not improved over random & Exp4, Exp5 & Qwen, 2Wiki & Guided $-$ random patches, QA & +1.9 [$-$1.6, 5.3]; $-$0.3, one-sided upper bound 3.1 & 40; 24 & Exp5 primary, margin 5; Exp4 inconclusive \\
-Combined pipeline leads loop on uncapped recall and recall at equal fact counts, trails on capped recall & Exp7 & Qwen, 2Wiki & Combined $-$ LOOP+seed, recall & Uncapped +5.6 [4.2, 7.0]; capped $-$8.7 [$-$10.6, $-$6.8]; equal fact counts +1.1 [0.5, 1.9] & 30 & Registered primary (uncapped); matching in plan \\
-Seeded extraction without CQs was not distinguishable from the combined pipeline & Exp7 & Qwen, 2Wiki & U-ext+seed $-$ Combined, QA & $-$0.3 [$-$3.5, 3.1]; 106k against 838k tokens per unit; answer correctness, seeded extraction higher by 2.3 [$-$0.2, 4.4] (post hoc) & 30 & Added arm \\
-Combined pipeline passes more fresh CQs than seeded extraction without CQs & Exp7 & Qwen, 2Wiki & Combined $-$ U-ext+seed, fresh-CQ pass rate & +13.5 [10.7, 16.3]; LLM judge of the builder's family & 30 & Secondary, in the Exp7 plan; added arm \\
+Combined pipeline leads loop on uncapped recall and recall at equal fact counts, trails on capped recall & Exp7 & Qwen, 2Wiki & Combined $-$ LOOP+vocab, recall & Uncapped +5.6 [4.2, 7.0]; capped $-$8.7 [$-$10.6, $-$6.8]; equal fact counts +1.1 [0.5, 1.9] & 30 & Registered primary (uncapped); matching in plan \\
+Seeded extraction without CQs was not distinguishable from the combined pipeline & Exp7 & Qwen, 2Wiki & U-ext+vocab $-$ Combined, QA & $-$0.3 [$-$3.5, 3.1]; 106k per unit against 277k (first pass) and 838k (full run); answer correctness +2.3 [$-$0.2, 4.4] (post hoc) & 30 & Added arm \\
+Combined pipeline passes more fresh CQs than seeded extraction without CQs & Exp7 & Qwen, 2Wiki & Combined $-$ U-ext+vocab, fresh-CQ pass rate & +13.5 [10.7, 16.3]; LLM judge of the builder's family & 30 & Secondary, in the Exp7 plan; added arm \\
 Most inexact gold facts are omissions & Exp6 & Qwen, 2Wiki & Omission share of inexact gold facts & 87.3\% of 1,336 & --- & Analysis of Exp2 graphs \\
 \bottomrule
 \end{tabular}
@@ -36,13 +36,13 @@ Most inexact gold facts are omissions & Exp6 & Qwen, 2Wiki & Omission share of i
 \begin{figure}[t]
 \centering
 \includegraphics[width=\columnwidth]{figures/fig_seed_forest_r62.pdf}
-\caption{The relation list raised held-out grounded QA in all four pipelines, and synonym names raised answer correctness in L0. Differences in points with 95\% intervals, Qwen on 2Wiki. The two groups use different metrics. Top, original list: grounded QA. Bottom, synonym list: answer correctness; L0 +15.4 [11.3, 19.5], U-ext +1.6 [$-$1.4, 4.2].}
+\caption{The relation list raised held-out grounded QA in all four pipelines, and synonym names raised answer correctness in L0. Differences in points with 95\% intervals, Qwen on 2Wiki. The two groups share one axis but use different metrics, so compare points within a group only. Top group, original list: grounded QA. Bottom group, synonym list: answer correctness; L0 +15.4 [11.3, 19.5], U-ext +1.6 [$-$1.4, 4.2].}
 \label{fig:seedforest}
 \end{figure}}{}
 
 Synonym names kept the benefit in L0. No question ID or normalised question text of the list's training split appears among the evaluation questions, and no synonym shares a word stem with its original name. In L0 answer correctness rose by 15.4 points (Qwen, 2WikiMultihopQA; [11.3, 19.5]; Table~\ref{tab:synseed}), and grounded QA rose by 15.8 ([11.5, 20.3]). In U-ext, which already extracts from every chunk, the synonym list was on par with no list (+1.6, [$-$1.4, 4.2]), in line with the smaller effect of the original list there (Appendix Table~\ref{tab:seedalign}).
 
-In L0 the synonym list matched the original list in answer correctness (+1.7, [$-$2.0, 5.0]); the original list gained 13.8 over no list in the stored runs.
+In L0 the synonym list was on par with the original list in answer correctness (+1.7, [$-$2.0, 5.0]); the original list gained 13.8 over no list in the stored runs.
 
 A list induced from the corpus, with no gold relations, raised L0 answer correctness by 16.3 points ([11.6, 20.2]). The original list rerun beside it gave +15.1 ([10.5, 19.5]).
 
@@ -122,11 +122,11 @@ U-ext & +1.6 [$-$1.4, 4.2] & +0.4 [$-$0.5, 1.5] & $-$1.5 [$-$4.2, 1.4] & $-$10.1
  & QA & Rec. unc. & Rec. cap. & Facts & Tok. (k) \\
 \midrule
 L0 & .394 & .646 & .609 & 725 & 131 \\
-L0+seed & .541 & .761 & .726 & 687 & 108 \\
+L0+vocab & .541 & .761 & .726 & 687 & 108 \\
 LOOP & .505 & .768 & .618 & 1,134 & 1,061 \\
-LOOP+seed & .599 & .845 & .731 & 980 & 878 \\
+LOOP+vocab & .599 & .845 & .731 & 980 & 878 \\
 U-ext & .558 & .874 & .512 & 1,704 & 100 \\
-U-ext+seed & .603 & .895 & .604 & 1,472 & 106 \\
+U-ext+vocab & .603 & .895 & .604 & 1,472 & 106 \\
 Combined & .606 & .901 & .643 & 1,435 & 838 \\
 Combined, no list & .514 & .798 & .562 & 1,418 & 838 \\
 Combined, first pass only & .607 & .854 & .742 & 972 & 277 \\
@@ -134,23 +134,23 @@ Combined, first pass only & .607 & .854 & .742 & 972 & 277 \\
 \end{tabular}
 \end{table}
 
-\section{Seeded Extraction Matches the Combined Pipeline With Fewer Tokens}
+\section{Seeded Extraction Reaches the Combined Pipeline's Grounded QA With Fewer Tokens}
 \label{sec:res-cost}
 
-With the same relation list, extraction from every chunk without CQs reached .603 grounded QA against the combined pipeline's .606, on par ($-$0.3 points, [$-$3.5, 3.1]), and used 106k tokens per unit against 838k\figcostref. On answer correctness it was on par as well (+2.3, [$-$0.2, 4.4]). Seeded extraction wrote more facts than L0+seed (1,472 against 687). At 277k tokens per unit, the combined pipeline's first pass alone, without its extra extraction passes, reached .607 grounded QA (Table~\ref{tab:exp8}).
+With the same relation list, extraction from every chunk without CQs reached .603 grounded QA against the combined pipeline's .606, on par ($-$0.3 points, [$-$3.5, 3.1]), and used 106k tokens per unit. The combined pipeline's first pass alone, without its extra extraction passes, reached .607 grounded QA at 277k tokens per unit, and its full run .606 at 838k (Table~\ref{tab:exp8}\figcostref). On answer correctness seeded extraction was on par as well (+2.3, [$-$0.2, 4.4]). It wrote more facts than L0+vocab (1,472 against 687).
 
 \IfFileExists{figures/fig_cost_quality_r64.pdf}{%
 \begin{figure*}[t]
 \centering
 \includegraphics[width=\textwidth]{figures/fig_cost_quality_r64.pdf}
-\caption{Seeded extraction without CQs matched the combined pipeline in grounded QA at a fraction of its tokens (106k against 838k per unit). Points are arm means of grounded QA against tokens per unit (log axis); intervals for the contrasts are in Tables~\ref{tab:glance} and~\ref{tab:itext}. Left, 2Wiki: arms with and without the list. Right, T-REx: seeded arms only. Qwen.}
+\caption{Seeded extraction without CQs reached the combined pipeline's grounded QA at a fraction of its tokens (106k per unit, against 277k for the combined pipeline's first pass and 838k for its full run). Points are arm means of grounded QA against tokens per unit (log axis); intervals for the contrasts are in Tables~\ref{tab:glance} and~\ref{tab:itext}. Left, 2Wiki: arms with and without the list. Right, T-REx: seeded arms only. Qwen.}
 \label{fig:costquality}
 \end{figure*}}{}
 
 On T-REx, with every arm given the original 22 names, seeded extraction scored .421 grounded QA against .371 for the combined pipeline, 5.0 points higher (90\% interval [1.1, 8.1]), at 19.1k tokens per unit against 298k.
 
 \paragraph{Three public extractors in the same setup.}
-None of the three public extractors received a relation list, and each ran with released defaults. Unseeded extraction, which also had no list, scored .558 grounded QA on the same units (Table~\ref{tab:exp8}). Run with Qwen on 2Wiki in the Exp7 setup (60 units, none failed), iText2KG wrote 1,899 facts, more than any arm in Table~\ref{tab:exp8}, and reached .430 grounded QA (Table~\ref{tab:itext}). That is 17.3 points below seeded extraction and 17.6 below the combined pipeline, at 478.8k tokens per unit against 105.9k and 837.7k. Against the single pass it was on par in grounded QA (+3.7, [$-$1.5, 9.3]) and 11.6 points higher in answer correctness.
+None of the three public extractors received a relation list, and each ran with released defaults. Extraction without CQs and without a list (U-ext) scored .558 grounded QA on the same units (Table~\ref{tab:exp8}). Run with Qwen on 2Wiki in the Exp7 setup (60 units, none failed), iText2KG wrote 1,899 facts, more than any arm in Table~\ref{tab:exp8}, and reached .430 grounded QA (Table~\ref{tab:itext}). That is 17.3 points below seeded extraction and 17.6 below the combined pipeline, at 478.8k tokens per unit against 105.9k and 837.7k. Against the single pass it was on par in grounded QA (+3.7, [$-$1.5, 9.3]) and 11.6 points higher in answer correctness.
 EDC, a second public extractor, induces its schema from the text and canonicalises it itself, and we ran it on the same model and engine with its released defaults (Self Canonicalization)~\cite{zhang2024edc}. It scored .445 grounded QA and .629 answer correctness (Table~\ref{tab:itext}), 5.1 points ([0.5, 10.0]) and 19.6 points ([14.8, 24.7]) above the single pass. EDC scored 15.8 points below seeded extraction in grounded QA ([$-$19.3, $-$12.3]), at 618.4k tokens per unit against 105.9k. Given the same 22-name list as its target schema, with the names as definitions (its Target Alignment mode), EDC scored .458 grounded QA with the list against .454 without it (+0.4, [$-$2.7, 2.9]), with 824 against 1,356 facts per unit. Seeded extraction scored 14.6 points above EDC with the list ([10.4, 18.5]), so giving EDC the same list did not close the gap.
 
 AutoSchemaKG, a third public extractor, also induces its schema from the text~\cite{bai2026autoschemakg}. We ran it with its released defaults on the same model family, chunks, answerer and scorer, on 30 2Wiki shards with one run seed. Its entity-relation triples, the variant comparable to the other arms, scored .213 grounded QA and .446 answer correctness, with 1,256.6 facts at 1,557.8k tokens per unit (Table~\ref{tab:itext}). It scored 39.2 points below seeded extraction in grounded QA ([$-$44.0, $-$34.4]) and 41.9 below the combined pipeline ([$-$46.3, $-$38.3]). Against the single pass it scored 19.2 points lower in grounded QA ([$-$26.0, $-$13.1]) and was on par in answer correctness (+2.1, [$-$5.0, 9.4]).
@@ -190,16 +190,17 @@ AutoSchemaKG triples $-$ single pass & $-$19.2 [$-$26.0, $-$13.1] & $+$2.1 [$-$5
 \paragraph{Retrieval over the same chunks.}
 On the same 2Wiki units, seeded extraction reached .669 answer correctness in a rerun beside the retrieval arms (.678 in the stored run, Table~\ref{tab:itext}). Retrieval-augmented generation from the top 5 chunks reached .515, and .500 with the 22-name list as a hint. Answer correctness is the common measure because the retrieval arms have no graph facts, so grounded QA cannot be computed for them. The graph scored 15.4 points above chunk retrieval ([10.6, 19.8]) and 16.9 above list-hinted retrieval ([11.1, 22.3]). With no context, the answer model reached .325 from its own knowledge, 35.3 points below the stored seeded run (.678; [30.1, 40.1]).
 
-The grounded-QA results above use graph facts only. When passages were added to the retrieved facts (hybrid QA) and the graph facts were capped at 60, every pipeline scored above vector-only QA (.502): LOOP+seed .725, L0+seed .716, U-ext+seed .709, Combined .699 and L0 .626 (60 units). Raising the fact cap from 30 to 60 raised answer correctness by 12.4 points in U-ext+seed ([9.3, 15.3]) and 9.6 in Combined ([7.2, 11.7]). In the stored run with up to 30 facts the scores were L0+seed .692, LOOP+seed .671, Combined .603, L0 .600 and U-ext+seed .585 (Appendix Table~\ref{tab:newchecks}): with 30 facts the arms with the most facts ranked lowest, and with 60 the four list or full-extraction arms were close.
+The grounded-QA results above use graph facts only. When passages were added to the retrieved facts (hybrid QA) and the graph facts were capped at 60, every pipeline scored above vector-only QA (.502): LOOP+vocab .725, L0+vocab .716, seeded extraction .709, Combined .699 and L0 .626 (60 units). Raising the fact cap from 30 to 60 raised answer correctness by 12.4 points in seeded extraction ([9.3, 15.3]) and 9.6 in Combined ([7.2, 11.7]). In the stored run with up to 30 facts the scores were L0+vocab .692, LOOP+vocab .671, Combined .603, L0 .600 and seeded extraction .585 (Appendix Table~\ref{tab:newchecks}): with 30 facts the arms with the most facts ranked lowest, and with 60 the four list or full-extraction arms were close.
 
 \section{What CQs Add: Each Fact Counts}
 \label{sec:res-cqs}
 \label{sec:res-coverage}
 
-Two results on the equal-fact-count check come first. With the relation list, the guided single pass scored 39.1 points above an equal-size random subset of seeded extraction in grounded QA ([34.2, 44.1]); the random subset did not score higher. The lead held against further selectors, among them selections made with the CQs or balanced over chunks (below). Without the list the relation-frequency selection scored 8.0 points above the guided pass ([2.7, 13.3]), and on T-REx without the list the guided pass and a random subset were on par (6.6 points, [$-$5.8, 12.2]).
+With the relation list and an equal fact count, the guided single pass scored 14.3 points above the model-scored selection ([8.9, 19.3]) and 25.0 above the chain-preserving selection ([19.8, 30.1]) of seeded extraction in grounded QA (Appendix Table~\ref{tab:selection}). It scored 39.1 points above an equal-size random subset ([34.2, 44.1]), and the random subset did not score higher. The lead held against selections made with the CQs or balanced over chunks (below). Without the list the relation-frequency selection scored 8.0 points above the guided pass ([2.7, 13.3]), and on T-REx without the list the guided pass and a random subset were on par (6.6 points, [$-$5.8, 12.2]).
 
 Without the list, U-ext raised grounded QA over L0 by 16.5 points ([10.6, 21.7]) by writing 1,704 facts against 725. The check compares the CQ-guided facts with facts chosen at random: we drew a uniform random subset of the stored U-ext graph (or of the listed graph, for the listed comparison) down to the fact count of the matching single pass, and the same answerer and scorer scored it. Without the list, the single pass scored 28.2 points above an equal-size random subset of open extraction ([23.4, 33.2]). On T-REx with the list, the single pass scored 7.4 points above an equal-size random subset of seeded extraction ([2.9, 12.8]). Two heuristic selections, one by relation frequency and one by entity centrality, cut the extraction graph to the guided graph's fact count. With the list, the CQ-guided single pass stayed ahead of both, by 16.6 points against the relation-frequency selection ([11.4, 22.1]) and 25.8 against the centrality selection ([20.5, 30.5]) in grounded QA (Appendix Table~\ref{tab:selection}).
 
 On 2Wiki with the list (60 units), the guided pass scored 25.0 points above the chain-preserving selector ([19.8, 30.1]) and 14.3 above the model selector ([8.9, 19.3]) in grounded QA (Appendix Table~\ref{tab:selection}). Selections by the CQs of the unit and balanced over chunks scored below the guided pass by 33.3 points ([28.3, 37.7]) and 37.2 points ([31.6, 41.4]). This separates CQ-guided extraction from CQ-guided selection.
 
-CQs also leave a schema that answers structured queries. On 40 fresh CQs per shard and run seed, written from random chunks with a neutral prompt, the combined pipeline passed 13.5 points more through SPARQL than seeded extraction ([10.7, 16.3]).
+\paragraph{Structured queries from fresh CQs.}
+CQs also leave a schema that answers structured queries. On 40 fresh CQs per shard and run seed, written from random chunks with a neutral prompt, the combined pipeline passed 13.5 points more through SPARQL than seeded extraction ([10.7, 16.3]). Held-out QA is reached by the simpler baseline, and on questions asked as CQs the CQ pipeline leads.

@@ -28,12 +28,21 @@
 \title{What Reaches the Graph Decides Held-Out Question Answering in Knowledge Graph Construction}
 
 \author{Minwoo~Kim,
+        Philje~Bang$^{\dagger}$,
+        Junpyo~Lee$^{\dagger}$,
+        Mingyu~Jeon$^{\dagger}$,
+        Hyun~Kyeong~Lee$^{\dagger}$,
         Hail~Jung,
         and~Hongdon~Lee% <-this % stops a space
 \IEEEcompsocitemizethanks{\IEEEcompsocthanksitem M.~Kim and H.~Lee are with the Manufacturing AX Research Laboratory, INTERX, Seoul 06193, Republic of Korea.\protect\\
 E-mail: \{mw.kim, hongdon.lee\}@interxlab.com.
+\IEEEcompsocthanksitem P.~Bang, J.~Lee, and M.~Jeon are with INTERX, Seoul 06193, Republic of Korea.\protect\\
+E-mail: \{pj.bang, jp.lee, mg.jeon\}@interxlab.com.
+\IEEEcompsocthanksitem H.~K.~Lee is with INTERX, Ulsan 44542, Republic of Korea.\protect\\
+E-mail: hyunkyeong.lee@interxlab.com.
 \IEEEcompsocthanksitem H.~Jung is with the Department of Industrial and Systems Engineering, Seoul National University of Science and Technology, Seoul 01811, Republic of Korea, and also with INTERX, Seoul 06193, Republic of Korea.\protect\\
 E-mail: hail95@seoultech.ac.kr.
+\IEEEcompsocthanksitem $^{\dagger}$P.~Bang, J.~Lee, M.~Jeon, and H.~K.~Lee contributed equally as co-second authors.
 }% <-this % stops an unwanted space
 \thanks{Manuscript received Month DD, YYYY; revised Month DD, YYYY.}}
 
@@ -67,9 +76,25 @@ Competency questions, knowledge graph construction, question answering, relation
 \appendices
 \input{sections/appendix}
 
-\clearpage % flush appendix floats before the biographies
+% biographies follow the appendix directly (no page break)
 \begin{IEEEbiography}[{\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{figures/bio_minwoo_kim.jpg}}]{Minwoo Kim}
 received the M.S. degree in data science and artificial intelligence from the Graduate School of AI$\cdot$SW, Sogang University, Seoul, Republic of Korea, in 2026. He is with the Manufacturing AX Research Laboratory at INTERX, Seoul, working on large language model (LLM) pipelines for industrial AI applications. His research emphasizes deterministic, auditable pipelines and empirical evaluation of knowledge graph construction and question answering systems. His broader interests include knowledge-graph engineering, autonomous manufacturing, agentic AI, and speech recognition.
+\end{IEEEbiography}
+
+\begin{IEEEbiography}[{\includegraphics[width=0.8in,height=1.0in,clip,keepaspectratio]{figures/bio_philje_bang.jpg}}]{Philje Bang}
+received the B.S. degree in mechanical system design engineering from Seoul National University of Science and Technology, Seoul, Republic of Korea. He is currently pursuing the M.S. degree in artificial intelligence with the Graduate School of AI$\cdot$SW, Sogang University. He is also a Data Scientist with the Gen.AI R\&D Team, INTERX, a manufacturing AI solution provider.
+\end{IEEEbiography}
+
+\begin{IEEEbiography}[{\includegraphics[width=0.8in,height=1.0in,clip,keepaspectratio]{figures/bio_junpyo_lee.jpg}}]{Junpyo Lee}
+received the B.S. degree in computer science and engineering in 2023 and the M.S. degree in electrical and computer engineering in 2025, both from Inha University, Republic of Korea. He is currently a Senior Researcher with the Gen.AI R\&D Team, INTERX, Seoul, Republic of Korea. His research interests include agentic AI, knowledge extraction from documents, and automatic speech recognition (ASR) systems.
+\end{IEEEbiography}
+
+\begin{IEEEbiography}[{\includegraphics[width=0.8in,height=1.0in,clip,keepaspectratio]{figures/bio_mingyu_jeon.jpg}}]{Mingyu Jeon}
+received the B.S. degree in computer engineering through the Academic Credit Bank System, Republic of Korea, in 2022, and the M.S. degree in business IT from Kookmin University, Seoul, Republic of Korea, in 2024. From 2024 to 2026, he was a Research Engineer with AIO2O Inc., Republic of Korea. He is currently a Researcher with INTERX, Seoul, Republic of Korea.
+\end{IEEEbiography}
+
+\begin{IEEEbiography}[{\includegraphics[width=0.8in,height=1.0in,clip,keepaspectratio]{figures/bio_hyunkyeong_lee.png}}]{Hyun Kyeong Lee}
+received the B.S. degree in software and the interdisciplinary program in information protection from Soongsil University, Seoul, Republic of Korea. She is currently an AI Researcher with INTERX, a manufacturing AI solution provider. Her research interests include text-to-SQL, chunking strategies, and ontologies.
 \end{IEEEbiography}
 
 \begin{IEEEbiography}[{\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{figures/bio_hail_jung.jpg}}]{Hail Jung}
