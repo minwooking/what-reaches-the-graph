@@ -166,6 +166,9 @@ List-schema pass $-$ CQ-guided single pass & T-REx, 33 & .335, 111 facts; .291, 
 List-schema pass $-$ CQ-guided single pass & HotpotQA, 30 & .283, 1,339 facts; .281, 927 & +0.2 [$-$5.0, 4.8] \\
 List-schema prompt with 40 CQs $-$ CQ-guided single pass & 2Wiki, 30 & .617, 810 facts; .529, 649 & +8.8 [4.8, 12.9] \\
 List-schema pass (separate run) $-$ list-schema prompt with 40 CQs & 2Wiki, 30 & .644, 756 facts; .617, 810 & +2.7 [$-$0.2, 5.6] \\
+Factorial run: CQ-derived schema cut to 22 properties $-$ CQ-guided single pass & 2Wiki, 30 & .537, 610 facts; .535, 684 & +0.2 [$-$1.9, 2.9] \\
+Factorial run: CQ-derived schema restricted to the 22 names $-$ CQ-guided single pass & 2Wiki, 30 & .608, 681 facts; .535, 684 & +7.3 [3.3, 12.1] \\
+Factorial run: list-schema pass $-$ CQ-derived schema restricted to the 22 names & 2Wiki, 30 & .650, 734 facts; .608, 681 & +4.2 [0.6, 7.3] \\
 Combined $-$ seeded extraction, fresh-CQ pass rate, Qwen judge, original scoring & 2Wiki, 60 & .410; .275 & +13.5 [10.7, 16.2] \\
 Same, Gemma writes and judges & 2Wiki, 60 & .369; .231 & +13.8 [11.6, 16.2] \\
 Same, Qwen writing and judging rerun on the stored graphs (rerun scoring) & 2Wiki, 60 & --- & +12.3 [9.8, 14.9] \\
@@ -403,7 +406,7 @@ The held-out-question rows of Table~\ref{tab:listschema} use the 16 evaluation q
 \subsection{Registration records and run details}
 \label{app:registration}
 \paragraph{List induction.}\label{app:induction}
-The list is induced from the corpus being built, with no question and no gold relation: the extraction model reads 300 random passages (title and first 1,200 characters) in 20 batches of 15, proposes up to 15 relation names per batch, and one call merges the 80 names proposed in the most batches into exactly 22. A second 2Wiki list came the same way from 300 of 6,136 chunks outside the evaluation shards (5 of the 22 names of the original list, Jaccard .128); on T-REx the lists came from 300 of the 386 evaluation-corpus passages and from 96 passages outside the evaluation shards (Section~\ref{sec:res-schema}). On 2Wiki the induced list matched the gold relations for 62.2 (strict) to 72.0\% (lenient) of the evidence, the original list for 98.4\%.
+The list is induced from the corpus being built, with no question and no gold relation: the extraction model reads 300 random passages (title and first 1,200 characters) in 20 batches of 15, proposes up to 15 relation names per batch, and one call merges the 80 names proposed in the most batches into exactly 22. A second 2Wiki list came the same way from 300 of 6,136 chunks outside the evaluation shards (5 of the 22 names of the original list, Jaccard .128); on T-REx the lists came from 300 of the 386 evaluation-corpus passages and from 96 passages outside the evaluation shards (Section~\ref{sec:res-schema}). On 2Wiki the induced list matched the gold relations for 62.2 (strict) to 72.0\% (lenient) of the evidence, the original list for 98.4\%. Inducing the 2Wiki list took 36,380 tokens and the T-REx list 75,691, once per corpus.
 
 \paragraph{Statistics.}
 Intervals are BCa bootstrap intervals over shards (B = 10,000); Holm correction is applied within each plan, and Table~\ref{tab:glanceall} gives each contrast's result.
@@ -414,7 +417,7 @@ Intervals are BCa bootstrap intervals over shards (B = 10,000); Holm correction 
 \subsection{Supporting values by result}
 \label{app:addedvalues}
 \paragraph{List effects.}
-In Gemma on 2Wiki the list raised grounded QA over no list by 7.4 points in the CQ-guided single pass ([3.3, 11.3]), 7.5 in the loop ([1.3, 15.0]) and 9.3 in the combined pipeline ([5.7, 12.9]). In Qwen, seeded extraction with the 2Wiki list induced outside the evaluation shards gained 3.1 points in grounded QA ([0.0, 6.5]) and was on par with no list in answer correctness (+1.7, [$-$1.0, 4.2]). 
+In Gemma on 2Wiki the list raised grounded QA over no list by 7.4 points in the CQ-guided single pass ([3.3, 11.3]), 7.5 in the loop ([1.3, 15.0]) and 9.3 in the combined pipeline ([5.7, 12.9]). 
 
 
 

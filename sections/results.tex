@@ -61,7 +61,7 @@ An induced list comes from the corpus alone, not from gold relations. With the s
 \begin{figure*}[t]
 \centering
 \includegraphics[width=0.9\textwidth]{figures/fig_cost_quality.pdf}
-\caption{The list-schema pass (green) scored 4.6 points above the combined pipeline in grounded QA at one eighth of its construction tokens, and seeded extraction matched the combined pipeline at the same low cost. Arm means against tokens per unit (log axis; overlapping points shifted sideways slightly); intervals are in Table~\ref{tab:glance} and Appendix Tables~\ref{tab:glanceall} and~\ref{tab:itext}. Left, 2Wiki (60 units). Right, T-REx, arms with the list only. Qwen.}
+\caption{The list-schema pass (green) scored 4.6 points above the combined pipeline in grounded QA at one eighth of its construction tokens, and seeded extraction was level with the combined pipeline at the same low cost. Arm means against tokens per unit (log axis; overlapping points shifted sideways slightly); intervals are in Table~\ref{tab:glance} and Appendix Tables~\ref{tab:glanceall} and~\ref{tab:itext}. Left, 2Wiki (60 units). Right, T-REx, arms with the list only. Qwen.}
 \label{fig:costquality}
 \end{figure*}
 
@@ -78,7 +78,7 @@ Each public extractor ran with its released settings, and its graph facts were s
 The repair loop wins on fresh 2Wiki shards, on bridge-comparison questions and at small answer fact caps, and loses on comparison questions, at large caps and on HotpotQA.
 
 \paragraph{Pooled over 60 2Wiki shards, the loop leads seeded extraction by 3.2 points.}
-Over the 30 original and 30 fresh shards the loop leads by 3.2 points in grounded QA ([0.2, 6.5]), almost all of it on bridge-comparison questions, and the two are level in answer correctness (Table~\ref{tab:glance}). Guided repair did not beat random patches of the same size (+1.9 [$-$1.6, 5.3]; Appendix Table~\ref{tab:glanceall}).
+Over the 30 original and 30 fresh shards the loop leads by 3.2 points in grounded QA ([0.2, 6.5]), almost all of it on bridge-comparison questions, and the two are level in answer correctness (Table~\ref{tab:glance}). Guided repair did not beat random patches of the same size (+1.9 [$-$1.6, 5.3] over 40 shards; Appendix Table~\ref{tab:glanceall}).
 
 \paragraph{On the original 2Wiki shards the two are level, with opposite signs by question type.}
 A bridge-comparison question compares an attribute of two entities, each reached through a bridge entity (for example, which of two films has the older director). With the list, the repair loop (.599 grounded QA at 878k tokens per unit) and seeded extraction (.603 at 106k) were level (Tables~\ref{tab:glance} and~\ref{tab:exp8}); seeded extraction holds more facts (1,472 against 980 per unit), and the loop trails it by 4.0 points in answer correctness and 4.9 in relation accuracy (Appendix Table~\ref{tab:glanceall}). By question type, on these original shards, the loop led by 22.5 points on bridge-comparison questions and trailed by 14.2 on comparison questions (Appendix Table~\ref{tab:qtype}).

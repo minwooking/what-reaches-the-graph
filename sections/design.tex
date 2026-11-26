@@ -2,7 +2,7 @@
 \label{sec:design}
 
 \paragraph{Data.}
-Dataset questions are held out from every stage of construction and only score the final graph.
+Dataset questions are held out from every stage of construction and only score the final graph; an induced list reads corpus passages but no question.
 
 The main corpus is 2WikiMultihopQA (2Wiki)~\cite{ho2020twowiki}. A \emph{shard} is a group of questions together with the union of their context paragraphs, and a \emph{unit} is one shard in one run seed (60 units = 30 shards $\times$ 2 run seeds). Shards hold about 16 questions (8 in the first patch study; Appendix Table~\ref{tab:experiments}), and each 2Wiki study after the first excludes the questions used in earlier ones; the main study holds 480 held-out questions.
 
