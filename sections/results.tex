@@ -1,7 +1,7 @@
 \section{The List, Not the CQs, Explains the Single Pass's Gain}
 \label{sec:res-schema}
 
-On the 60 main-run 2Wiki units the list-schema pass scores .652 grounded QA, 4.6 points above the combined pipeline (.606), at one eighth of its tokens (Section~\ref{sec:res-cost}). This section traces that gain to the list. Without the list, CQ guidance scores below plain extraction (.394 against .558 grounded QA, Table~\ref{tab:exp8}).
+On the 60 main-run 2Wiki units the list-schema pass scores .652 grounded QA with up to 60 facts, 4.6 points above the combined pipeline (.606), at one eighth of its tokens (Section~\ref{sec:res-cost}). This section traces that gain to the list. Without the list, CQ guidance scores below plain extraction (.394 against .558 grounded QA, Table~\ref{tab:exp8}).
 \paragraph{The list-schema pass, with no CQs, scores above the CQ-guided single pass given the same list.}
 The list-schema pass makes one extraction pass whose schema is the 22 list names alone. On the 60 main-run units it scored 11.1 points above the CQ-guided single pass given the same list (.652 against .541; [7.5, 14.3]; answer correctness +11.8 [8.9, 14.8]). Schema size does not explain the gap. In a 30-unit factorial run (Appendix Table~\ref{tab:listschema}), cutting the CQ-derived schema to 22 properties moved grounded QA by +0.2 [$-$1.9, 2.9]; deriving it from the same CQs but restricted to the 22 names raised it by 7.3 [3.3, 12.1], and the 22 names alone, with no CQs, added 4.2 more [0.6, 7.3]. On T-REx it gains 4.4 points over the CQ-guided single pass; on HotpotQA it is level with it (+0.2) and 20.4 points below seeded extraction.
 
@@ -61,7 +61,7 @@ An induced list comes from the corpus alone, not from gold relations. With the s
 \begin{figure*}[t]
 \centering
 \includegraphics[width=0.9\textwidth]{figures/fig_cost_quality.pdf}
-\caption{The list-schema pass (green) scored 4.6 points above the combined pipeline in grounded QA at one eighth of its construction tokens, and seeded extraction was level with the combined pipeline at the same low cost. Arm means against tokens per unit (log axis; overlapping points shifted sideways slightly); intervals are in Table~\ref{tab:glance} and Appendix Tables~\ref{tab:glanceall} and~\ref{tab:itext}. Left, 2Wiki (60 units). Right, T-REx, arms with the list only. Qwen.}
+\caption{The list-schema pass (green) scored 4.6 points above the combined pipeline in grounded QA with up to 60 facts, at one eighth of its construction tokens, and seeded extraction was level with the combined pipeline at the same low cost. Arm means against tokens per unit (log axis; overlapping points shifted sideways slightly); intervals are in Table~\ref{tab:glance} and Appendix Tables~\ref{tab:glanceall} and~\ref{tab:itext}. Left, 2Wiki (60 units). Right, T-REx, arms with the list only. Qwen.}
 \label{fig:costquality}
 \end{figure*}
 

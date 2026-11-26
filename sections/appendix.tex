@@ -281,7 +281,7 @@ The stored graphs were answered with the 60 nearest facts under Qwen3-Embedding-
 
 \begin{table}[t]
 \centering
-\caption{Contrasts in grounded QA (points, 95\% intervals) under our retriever and two alternative answer-time retrievers (Qwen, stored graphs). 2Wiki rows use 60 units and the HotpotQA row 30. Last row: list effect on plain extraction. List-schema grounded QA .427 (embedding), .415 (fusion).}
+\caption{Contrasts in grounded QA (points, 95\% intervals) under our retriever and two alternative answer-time retrievers (Qwen, stored graphs). 2Wiki rows use 60 units and the HotpotQA row 30. Last row: list effect on plain extraction. List-schema grounded QA .427 (embedding), .415 (fusion). Intervals are BCa, so a reversed contrast is not the mirror image of its interval elsewhere.}
 \label{tab:altret}
 \scriptsize\setlength{\tabcolsep}{1.5pt}
 \begin{tabular}{P{2.35cm}P{2.1cm}P{2.1cm}P{2.1cm}}
@@ -297,7 +297,6 @@ List-schema $-$ combined & +4.6 [1.3, 7.8] & +4.2 [0.8, 7.2] & +4.5 [1.1, 7.7] \
 Combined $-$ seeded & +0.3 [$-$3.0, 3.6] & $-$0.2 [$-$2.4, 1.9] & $-$2.6 [$-$4.5, $-$0.5] \\
 List effect & +4.5 [0.7, 8.8] & +2.3 [$-$0.4, 4.9] & +2.3 [0.1, 4.6] \\
 \midrule
-List-schema $-$ combined & --- & +4.2 [0.8, 7.2] & +4.5 [1.1, 7.7] \\
 List-schema $-$ loop & --- & +6.5 [2.8, 9.9] & +5.8 [2.2, 9.4] \\
 List-schema $-$ seeded & --- & +4.0 [1.1, 6.7] & +1.9 [$-$1.6, 5.3] \\
 \bottomrule

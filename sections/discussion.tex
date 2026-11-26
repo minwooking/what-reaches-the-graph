@@ -3,7 +3,7 @@
 
 \paragraph{What to use.}
 \begin{enumerate}[nosep,label=(\roman*)]
-  \item For SPARQL or other querying over a closed relation vocabulary on 2Wiki-like corpora with a small relation inventory, where a gold or induced list exists, use the list-schema pass: it scores 4.6 points above the combined pipeline in grounded QA and is level with it in SPARQL pass rate under the Qwen judge, at about one eighth of its tokens (Sections~\ref{sec:res-cost} and~\ref{sec:res-cqs}).
+  \item For SPARQL or other querying over a closed relation vocabulary on 2Wiki-like corpora with a small relation inventory, where a gold or induced list exists, use the list-schema pass: it scores 4.6 points above the combined pipeline in grounded QA with up to 60 facts and is level with it in SPARQL pass rate under the Qwen judge, at about one eighth of its tokens (Sections~\ref{sec:res-cost} and~\ref{sec:res-cqs}).
   \item To answer from graph facts on corpora with many long-tail relations (HotpotQA-like), build plain extraction with and without the list, twice one build's tokens, and compare them on a validation split, since the effect depends on the corpus and the list (+4.5 on 2Wiki with the original list, +0.8 with an induced one, +0.5 on T-REx, $-$4.0 on HotpotQA). Choosing on a validation half of the shards was reliable for effects of about 4 points or more (Appendix~\ref{app:heldout}).
   \item On 2Wiki-like corpora the repair loop leads seeded extraction on bridge-comparison questions, at 7 to 8 times the tokens; use it there only if that cost is acceptable. On HotpotQA-like corpora seeded extraction leads at every fact cap.
 \end{enumerate}
