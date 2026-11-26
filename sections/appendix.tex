@@ -1,11 +1,85 @@
-\renewcommand{\arraystretch}{0.88}
+\renewcommand{\arraystretch}{0.85}\setlength{\textfloatsep}{6pt plus 2pt minus 2pt}\setlength{\dbltextfloatsep}{6pt plus 2pt minus 2pt}\setlength{\floatsep}{6pt plus 1pt minus 1pt}\setlength{\dblfloatsep}{6pt plus 1pt minus 1pt}
 \section{Additional Results and Records}
 \label{app:experiments}
+
+The main study is the 2Wiki study of Table~\ref{tab:exp8}. KG-only QA is grounded QA's graph-only setting.
+
+\begin{table*}[!t]
+\centering
+\caption{Results of the contrasts of Tables~\ref{tab:glance} and~\ref{tab:listeffect} on the original shards, and of the remaining contrasts in the study. Values are differences in points unless marked; $n$ is the number of shards; where two run seeds were used, 30 shards $\times$ 2 run seeds = 60 units. Result reads the interval: improved when the 95\% interval excludes 0 on the higher side, lower when it lies below 0, not established when it includes 0. A dash means no interval is listed in the row.}
+\label{tab:glanceall}
+\scriptsize\setlength{\tabcolsep}{2pt}
+\begin{tabular}{P{3.5cm}P{9.4cm}P{0.8cm}P{3.9cm}}
+\toprule
+Claim & Experiment, model and corpus; contrast; value [95\% interval] & $n$ & Result \\
+\midrule
+The list raises grounded QA & Main, Qwen, 2Wiki. Values in Table~\ref{tab:listeffect}. & 30 & --- \\
+Synonym list, answer correctness & Main, Qwen, 2Wiki. Synonym list $-$ no list. L0 +15.4 [11.3, 19.5]; U-ext +1.6 [$-$1.4, 4.2]. & 30 & improved (L0); not established (U-ext) \\
+Induced list raises answer correctness & Main, Qwen, 2Wiki; T-REx. Values in Table~\ref{tab:listeffect}. & 30; 33 & improved \\
+Outside-shard list raises grounded QA & Main, Qwen, T-REx. L0, list induced outside the evaluation shards $-$ no list: +7.4 [3.9, 11.4]. & 33 & improved \\
+Graph above chunk retrieval & Main, Qwen, 2Wiki. Seeded extraction $-$ retrieval of top 5 chunks; with list hint. +15.4 [10.6, 19.8]; +16.9 [11.1, 22.3]; no-context answer model .325 [.294, .354]. & 30 & improved \\
+Equal fact count: guided pass above selections & Main, Qwen, 2Wiki. Guided pass $-$ selections of the extraction graph at the guided pass's fact count ; values in Table~\ref{tab:selection}. & 30 & with list, no selection above the guided pass; without list, relation frequency above \\
+List-schema pass above CQ-guided pass & Qwen, 2Wiki; T-REx. Values in Table~\ref{tab:listschema}. & 30; 33 & improved \\
+Expansion, grounded QA & First and second patch, Qwen, 2Wiki. G $-$ L0. +9.1 [4.7, 13.8]; +9.6 [5.2, 14.8]. & 40; 24 & improved \\
+Iteration vs.\ one batch of CQs & Iteration, Qwen, 2Wiki. Iteration $-$ one batch, recall. +1.2 [$-$3.5, 5.7], crossed shard $\times$ run seed interval. & 24 & not established \\
+Hybrid QA with 160 vs.\ 40 CQs & CQ-count, as above. 160 vs.\ 40 CQs, 1$\times$. $-$3.6 to +0.6, all intervals include 0 (Table~\ref{tab:exp9}). At 4$\times$ budget, Qwen 2Wiki $-$9.1 [$-$13.8, $-$5.5]. & 20--33 & not established at 1$\times$; lower at 4$\times$ \\
+Guided repair vs.\ random & First and second patch, Qwen, 2Wiki. Guided $-$ random patches, grounded QA: +1.9 [$-$1.6, 5.3] ($n$=40); $-$0.3, one-sided upper bound 3.1 ($n$=24). & 40; 24 & first patch study: not established; second: upper bound below margin 5 \\
+Loop against seeded extraction & Main, Qwen, 2Wiki; T-REx. Values in Table~\ref{tab:glance}. & 30; 33 & --- \\
+Loop $-$ seeded extraction, induced list, grounded QA & Qwen, 2Wiki. Outside-shard induced list in both arms. +2.3 [$-$1.0, 6.0]; bridge-comparison +18.3 [7.5, 29.2], comparison $-$10.0 [$-$18.3, $-$4.2]; T-REx list $-$1.1 [$-$5.6, 2.4] (17.0$\times$ the tokens). & 30; 33 & not established; bridge-comparison improved, comparison lower; T-REx not established \\
+Loop with list $-$ seeded extraction at the loop's fact count, grounded QA & Main, Qwen, 2Wiki; seeded graphs cut at random to the loop's fact count (three draws; 60 units). Loop $-$ cut seeded +31.6 [27.1, 35.9] (answer correctness +25.2 [21.0, 29.8]); full graphs $-$0.9 [$-$4.4, 2.1] ($-$4.7 [$-$8.2, $-$1.7]); full seeded $-$ cut seeded +32.5 [28.8, 36.5]. & 30 & improved (loop $-$ cut seeded); not established (full graphs) \\
+Loop with list $-$ seeded extraction, entity-pair coverage and relation correctness & Main, Qwen, 2Wiki, scored by code. Entity-pair coverage $-$5.8 [$-$7.3, $-$4.1] (comparison $-$15.0 [$-$19.8, $-$10.2]; bridge-comparison 0.0 [$-$1.3, 1.5]); relation correctness within matched pairs +0.4 [$-$1.1, 1.5]; relation accuracy $-$4.9 [$-$6.7, $-$2.8]. & 30 & lower (entity-pair coverage, relation accuracy); not established (relation correctness) \\
+Seeded extraction against HippoRAG 2, answer correctness & Main chunks, Qwen, 2Wiki. Against HippoRAG 2 (top 5 passages; chain-of-thought answerer): seeded extraction +0.7 [$-$4.0, 5.2]; +1.4 [$-$2.0, 4.1]. Loop with list $-$3.2 [$-$7.4, 1.1]; $-$2.5 [$-$5.2, 0.2]. Combined $-$1.6 [$-$5.9, 2.4]; +1.1 [$-$2.0, 4.2]. & 30 & not established \\
+Loop $-$ seeded extraction, induced list, answer correctness & As above. $-$0.4 [$-$3.5, 2.5]; T-REx list $-$2.9 [$-$7.6, 0.6]. & 30; 33 & not established \\
+Seeded extraction, induced $-$ training-split list, grounded QA & As above. $-$3.5 [$-$7.7, $-$0.2]; the loop, +0.2 [$-$2.7, 3.1]. & 30 & lower (seeded extraction); not established (loop) \\
+HotpotQA arms & Added corpus, Qwen, HotpotQA, grounded QA. Seeded extraction .488 (2,231 facts and 646 relation names, 133k tokens; plain extraction 2,435 facts and 964 names), loop .335 (1,268 facts, 942k), U-ext .527; L0 with the induced list .281, without .192; list-schema pass .283; U-ext $-$ seeded extraction +4.0 [0.2, 8.1]. Other contrasts are in Section~\ref{sec:res-schema} and Table~\ref{tab:glance}. & 30 & Seeded extraction vs loop: seeded non-inferior and above (loop minus seeded $-$15.2; margin 5; 0.0008). List vs no list: improved (0.0004). List-schema vs L0 with list: not established. U-ext vs seeded: improved \\
+Combined vs.\ loop, recall & Main, Qwen, 2Wiki. Combined $-$ LOOP+vocab, recall. Uncapped +5.6 [4.2, 7.0]; capped $-$8.7 [$-$10.6, $-$6.8]; equal fact counts +1.1 [0.5, 1.9]. & 30 & improved (uncapped); lower (capped); improved (equal fact counts) \\
+Seeded extraction vs.\ combined & Main, Qwen, 2Wiki. Seeded extraction $-$ Combined, QA. $-$0.3 [$-$3.9, 2.8]; 106k per unit against 277k (first pass) and 838k (full run); answer correctness +2.3 [$-$0.2, 4.4]; T-REx, grounded QA, seeded extraction $-$ combined +5.0 [0.4, 8.6], 19.1k against 298k. & 30 & not established; T-REx improved \\
+Combined passes more fresh CQs & Main, Qwen, 2Wiki. Combined $-$ seeded extraction +13.5 [10.7, 16.2] (60 units, original scoring; +12.3 [9.8, 14.9] with the judge rerun); combined $-$ plain extraction +1.3 [$-$1.2, 3.9] by judge (rerun), +6.3 [3.6, 8.9] by rule (60 units); Claude Haiku 5.5 judge in Appendix~\ref{app:freshcq}; held-out-question rows in Table~\ref{tab:listschema}. & 30 & improved (vs.\ seeded extraction); not established (vs.\ plain extraction, judge); improved (rule) \\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+\begin{table*}[t]
+\centering
+\caption{Three public extractors against the arms of Table~\ref{tab:exp8} (Qwen, 2Wiki), in two blocks with different units. EDC ran with its released settings (Self Canonicalization). The EDC row with and without the list is on the 30 units. AutoSchemaKG's entity-relation triples are the comparable variant; its full graph also holds concept and event edges. Tokens are per unit, in thousands. Differences are the extractor minus the arm, in points, with 95\% intervals.}
+\label{tab:itext}
+\scriptsize\setlength{\tabcolsep}{3pt}
+\begin{tabular}{lcccc}
+\toprule
+ & Grounded QA & Answer correctness & Facts & Tokens (k) \\
+\midrule
+\multicolumn{5}{l}{\emph{60 units (30 shards, two run seeds)}} \\
+iText2KG & .430 [.393, .470] & .549 [.503, .596] & 1,899 & 478.8 \\
+EDC & .445 [.398, .493] & .629 [.583, .676] & 1,358 & 618.4 \\
+Plain extraction (U-ext) & .558 & .648 & 1,704 & 100.0 \\
+Seeded extraction & .603 & .678 & 1,472 & 105.9 \\
+Combined & .606 & .655 & 1,435 & 837.7 \\
+Single pass (L0) & .394 & .433 & 725 & 131.0 \\
+iText2KG $-$ U-ext & $-$12.8 [$-$16.5, $-$8.6] & $-$9.9 [$-$13.3, $-$5.8] & & \\
+EDC $-$ U-ext & $-$11.4 [$-$15.2, $-$7.5] & $-$1.9 [$-$5.2, 1.8] & & \\
+iText2KG $-$ seeded extraction & $-$17.3 [$-$21.0, $-$13.9] & $-$12.9 [$-$16.3, $-$10.0] & & \\
+iText2KG $-$ combined & $-$17.6 [$-$20.8, $-$14.1] & $-$10.6 [$-$14.1, $-$7.5] & & \\
+iText2KG $-$ single pass & $+$3.6 [$-$1.5, 9.3] & $+$11.6 [5.6, 18.2] & & \\
+EDC $-$ seeded extraction & $-$15.8 [$-$19.3, $-$12.3] & $-$4.9 [$-$7.7, $-$2.5] & & \\
+EDC $-$ combined & $-$16.1 [$-$20.1, $-$12.4] & $-$2.6 [$-$5.9, 0.5] & & \\
+EDC $-$ single pass & $+$5.1 [0.5, 10.0] & $+$19.6 [14.8, 24.7] & & \\
+\midrule
+\multicolumn{5}{l}{\emph{30 units (30 shards, one run seed)}} \\
+EDC, 22-name list / no list & .458 / .454 & .613 / .633 & 824 / 1,356 & 791 / --- \\
+AutoSchemaKG, entity-relation triples & .213 [.175, .252] & .446 [.396, .490] & 1,257 & 1,557.8 \\
+AutoSchemaKG, full graph & .096 [.073, .121] & .233 [.200, .260] & 18,360 & 1,557.8 \\
+AutoSchemaKG triples $-$ U-ext & $-$34.6 [$-$38.5, $-$30.8] & $-$20.2 [$-$23.8, $-$16.7] & & \\
+AutoSchemaKG triples $-$ seeded extraction & $-$39.2 [$-$44.0, $-$34.4] & $-$23.3 [$-$27.5, $-$20.0] & & \\
+AutoSchemaKG triples $-$ combined & $-$41.9 [$-$46.3, $-$38.3] & $-$23.1 [$-$27.3, $-$19.0] & & \\
+AutoSchemaKG triples $-$ single pass & $-$19.2 [$-$26.0, $-$13.1] & $+$2.1 [$-$5.0, 9.4] & & \\
+\bottomrule
+\end{tabular}
+\end{table*}
 
 
 \begin{table*}[!ht]
 \centering
-\caption{Exp8, other arms against the reference of 40 CQs at 1$\times$, in points. The arms with 160 CQs have shard-cluster BCa 95\% intervals; the 40-CQ arm at 4$\times$ is an arm-mean difference with no registered interval. Tokens are the mean ratio of 160 CQs at 4$\times$ to the reference.}
+\caption{CQ-count study, other arms against the reference of 40 CQs at 1$\times$, in points. The arms with 160 CQs have shard-cluster BCa 95\% intervals; the 40-CQ arm at 4$\times$ is an arm-mean difference with no interval. Tokens are the mean ratio of 160 CQs at 4$\times$ to the reference.}
 \label{tab:exp9other}
 \scriptsize\setlength{\tabcolsep}{2.5pt}
 \begin{tabular}{p{4.1cm}cccc}
@@ -15,7 +89,7 @@
 KG-only QA, 160 CQs, 4$\times$ & +4.7 [1.6, 8.0] & +5.0 [1.7, 8.2] & +10.6 [2.5, 17.2] & +1.6 [$-$4.7, 5.7] \\
 KG-only QA, 40 CQs, 4$\times$ (mean) & +1.5 & $-$0.5 & +1.0 & 0.0 \\
 Evidence recall, 160 CQs, 4$\times$ & +1.9 [0.8, 3.9] & +0.6 [$-$0.2, 2.0] & +9.5 [5.9, 15.6] & +12.0 [8.8, 15.6] \\
-Hybrid QA, 160 CQs, 4$\times$ & +0.9 [$-$2.8, 4.2] & +0.3 [$-$2.2, 2.6] & $-$0.9 [$-$4.7, 3.4] & $-$9.1 [$-$13.8, $-$5.5] \\
+Hybrid QA, 160 CQs, 4$\times$ & +0.9 [$-$2.8, 4.2] & +0.3 [$-$2.1, 2.6] & $-$0.9 [$-$4.7, 3.4] & $-$9.1 [$-$13.8, $-$5.5] \\
 Precision, 160 CQs, 4$\times$ & $-$12.4 [$-$18.0, $-$7.8] & $-$1.2 [$-$4.8, 2.4] & +3.3 [$-$0.6, 7.1] & $-$12.2 [$-$17.0, $-$6.4] \\
 Precision, 160 CQs, 1$\times$ & 0.0 [$-$5.2, 5.0] & $-$0.5 [$-$5.2, 3.8] & +4.9 [0.8, 9.4] & $-$4.0 [$-$9.0, 0.7] \\
 Tokens, 160 CQs 4$\times$ / reference & 2.8 & 1.9 & 3.8 & 4.0 \\
@@ -25,7 +99,7 @@ Tokens, 160 CQs 4$\times$ / reference & 2.8 & 1.9 & 3.8 & 4.0 \\
 
 \begin{table*}[!t]
 \centering
-\caption{Exp8: 160 CQs at the 1$\times$ token budget against the reference of 40 CQs at 1$\times$. Differences in points with shard-cluster BCa 95\% intervals; $n$ is the number of shards in the contrast. Post hoc 90\% intervals for hybrid QA, left to right: [$-$1.8, 2.3], [$-$1.7, 3.1], [$-$3.4, 4.7] and [$-$8.1, 0.3].}
+\caption{CQ-count study: 160 CQs at the 1$\times$ token budget against the reference of 40 CQs at 1$\times$. Differences in points with shard-cluster BCa 95\% intervals; $n$ is the number of shards in the contrast. 90\% intervals for hybrid QA, left to right: [$-$1.8, 2.3], [$-$1.7, 3.1], [$-$3.4, 4.7] and [$-$8.1, 0.3].}
 \label{tab:exp9}
 \footnotesize\setlength{\tabcolsep}{3.5pt}
 \begin{tabular}{lcccc}
@@ -42,49 +116,87 @@ Evidence recall (uncapped) & +0.3 [$-$1.1, 2.1] & +1.0 [0.1, 2.3] & +9.2 [5.5, 1
 
 \begin{table*}[!ht]
 \centering
-\caption{Original Qwen runs and the Gemma replication, in points with 95\% intervals ($n$ in shards or units). Labels are the plans' decision labels; for Exp5 the margin is 5 points. A dash means no value or no run. Nemotron is a third model whose grounded QA stayed at floor (at most .047 in every arm, post hoc).}
+\caption{Original Qwen runs and the Gemma replication, in points with 95\% intervals ($n$ in shards or units). For the second patch study the margin is 5 points. A dash means no value or no run. The building-ontology study contrasts iterative CQ refinement with none, not with extraction. Nemotron is a third model whose grounded QA stayed at floor (at most .047 in every arm).}
 \label{tab:replication}
 \scriptsize\setlength{\tabcolsep}{3pt}
-\begin{tabular}{P{3.7cm}P{3.7cm}P{4.2cm}P{3.5cm}}
+\begin{tabular}{P{4.6cm}P{3.9cm}P{4.7cm}P{3.9cm}}
 \toprule
 Experiment and contrast & Qwen & Gemma & Nemotron \\
 \midrule
-Exp1, iteration over none (by construction, plan) & +21.4 [16.2, 27.1] & +42.1 [33.6, 50.7] & invalid or at floor \\
-Exp4, GR over L0 & +9.7 [4.1, 15.0] & +13.1 [7.8, 18.4] & invalid or at floor \\
-Exp5, evaluation-guided over random repair & $-$0.3, upper bound 3.1 (one-sided), not improved & +1.5 [$-$3.1, 6.5], not improved & $-$0.7 [$-$1.9, 0.0] \\
-Exp7, recall, combined over LOOP+vocab & +5.6 [4.2, 7.0] & +9.2 [7.6, 11.4] ($n$=60) & +13.1 [8.9, 16.8] ($n$=41) \\
-Exp7, recall, combined over L0+vocab & +14.0 [12.1, 15.9] & +10.2 [2.1, 16.1] & +16.7 [11.8, 20.9] \\
-Exp7 design on T-REx, combined $-$ LOOP+vocab & --- & +1.6 [$-$0.9, 4.4], not established ($n$=27) & +1.2 [$-$0.6, 4.1], not established ($n$=12) \\
-Exp7 design on T-REx, combined $-$ L0+vocab & --- & +2.7 [$-$0.4, 5.8], not established & --- \\
+Building-ontology, iteration over none (by construction, plan) & +21.4 [16.2, 27.1] & +42.1 [33.6, 50.7] & invalid or at floor \\
+First patch, GR over L0 & +9.7 [4.1, 15.0] & +13.1 [7.8, 18.4] & invalid or at floor \\
+Second patch, evaluation-guided over random repair & $-$0.3, upper bound 3.1 (one-sided), not improved & +1.5 [$-$3.1, 6.5], not improved & $-$0.7 [$-$1.9, 0.0] \\
+Main, recall, combined over LOOP+vocab & +5.6 [4.2, 7.0] & +9.2 [7.6, 11.4] ($n$=60) & +13.1 [8.9, 16.8] ($n$=41) \\
+Main, recall, combined over L0+vocab & +14.0 [12.1, 15.9] & +10.2 [2.1, 16.1] & +16.7 [11.8, 20.9] \\
+Main design on T-REx, combined $-$ LOOP+vocab & --- & +1.6 [$-$0.9, 4.4], not established ($n$=27) & +1.2 [$-$0.6, 4.1], not established ($n$=12) \\
+Main design on T-REx, combined $-$ L0+vocab & --- & +2.7 [$-$0.4, 5.8], not established & --- \\
 \bottomrule
 \end{tabular}
 \end{table*}
 
 \begin{table*}[!ht]
 \centering
-\caption{Checks added after the main study, Qwen. Hybrid QA with up to 30 graph facts against vector-only QA (.502 [.460, .544]) and fact precision judged by Gemma, both on the 2Wiki Exp7 graphs (points, 95\% intervals, 30 shards, 60 units); grounded QA, class-aligned recall and tokens per unit (thousands) for the Exp7 arms on T-REx (33 shards, one run seed). Precision was not measured for L0.}
+\caption{Checks added after the main study, Qwen. Hybrid QA answer correctness with up to 30 or 60 graph facts (60: a rerun; a dash: not tabulated), the 30-fact column against vector-only QA (.502 [.460, .544]) and fact precision judged by Gemma, both on the 2Wiki main-study graphs (points, 95\% intervals, 30 shards, 60 units); grounded QA, class-aligned recall and tokens per unit (thousands) for the main-study arms on T-REx (33 shards, one run seed).}
 \label{tab:newchecks}
 \scriptsize\setlength{\tabcolsep}{2.5pt}
-\begin{tabular}{lcccccc}
+\begin{tabular}{lccccccc}
 \toprule
- & Hybrid QA & Hybrid $-$ vector & Precision & QA, T-REx & Recall, T-REx & Tokens (k) \\
+ & Hybrid QA, 30 facts & Hybrid QA, 60 facts & Hybrid $-$ vector & Precision & Grounded QA, T-REx & Recall, T-REx & Tokens (k) \\
 \midrule
-L0 & .600 & +9.8 [4.3, 14.6] & --- & --- & --- & --- \\
-L0+vocab & .692 & +19.0 [14.7, 22.5] & .874 [.856, .890] & .290 & .173 & 22.7 \\
-LOOP+vocab & .671 & +16.9 [12.2, 21.0] & .802 [.785, .819] & .346 & .189 & 310 \\
-Combined & .603 & +10.1 [5.3, 14.2] & .716 [.686, .741] & .371 & .228 & 298 \\
-U-ext+vocab & .585 & +8.3 [2.2, 13.9] & .925 [.913, .938] & .421 & .184 & 19.1 \\
+L0 & .600 & --- & +9.8 [4.3, 14.6] & --- & --- & --- & --- \\
+L0+vocab & .692 & .716 & +19.0 [14.7, 22.5] & .874 [.856, .890] & .290 & .173 & 22.7 \\
+LOOP+vocab & .671 & .725 & +16.9 [12.2, 21.0] & .802 [.785, .819] & .346 & .189 & 310 \\
+Combined & .603 & .699 & +10.1 [5.3, 14.2] & .716 [.686, .741] & .371 & .228 & 298 \\
+U-ext+vocab & .585 & .709 & +8.3 [2.2, 13.9] & .925 [.913, .938] & .421 & .184 & 19.1 \\
 \bottomrule
 \end{tabular}
 \end{table*}
 
+\begin{table*}[!ht]
+\centering
+\caption{List-schema runs and the Gemma structured-query run (Qwen builds the graphs; $n$ shard $\times$ run seed units). Arm values for the first and second arm: grounded QA and facts per unit; in the fresh-CQ and held-out-question rows, pass rates (30-unit rows: the run seed with all graphs). Differences in points, shard-cluster BCa 95\% intervals. Arm values differ between rows because the contrasts come from separate runs (the first row's .529 is the list-schema study's own run of the single pass given the list, .541 in Table~\ref{tab:exp8}).}
+\label{tab:listschema}
+\scriptsize\setlength{\tabcolsep}{3pt}
+\begin{tabular}{P{7.8cm}P{2.0cm}P{4.2cm}P{3.0cm}}
+\toprule
+Contrast & Corpus, $n$ & Arm values & Difference \\
+\midrule
+List-schema pass $-$ CQ-guided single pass & 2Wiki, 30 & .650, 734 facts; .529, 657 & +12.1 [7.5, 16.0] \\
+List-schema pass $-$ CQ-guided single pass & T-REx, 33 & .335, 111 facts; .291, 109 & +4.4 [1.0, 7.4] \\
+List-schema pass $-$ CQ-guided single pass & HotpotQA, 30 & .283, 1,339 facts; .281, 927 & +0.2 [$-$5.0, 4.8] \\
+List-schema prompt with 40 CQs $-$ CQ-guided single pass & 2Wiki, 30 & .617, 810 facts; .529, 649 & +8.8 [4.8, 12.9] \\
+List-schema pass (separate run) $-$ list-schema prompt with 40 CQs & 2Wiki, 30 & .644, 756 facts; .617, 810 & +2.7 [$-$0.2, 5.6] \\
+Combined $-$ seeded extraction, fresh-CQ pass rate, Qwen judge, original scoring & 2Wiki, 60 & .410; .275 & +13.5 [10.7, 16.2] \\
+Same, Gemma writes and judges & 2Wiki, 60 & .369; .231 & +13.8 [11.6, 16.2] \\
+Same, Qwen writing and judging rerun on the stored graphs (rerun scoring) & 2Wiki, 60 & --- & +12.3 [9.8, 14.9] \\
+Same, rescored without a judge (rows $\le$ 20, expected span in result) & 2Wiki, 60 & .479; .314 & +16.5 [13.9, 19.0] \\
+Combined $-$ list-schema pass, fresh-CQ pass rate & 2Wiki, 30 & .414; .233 & +18.1 [15.4, 21.4] \\
+Combined $-$ plain extraction, fresh-CQ pass rate & 2Wiki, 30 & .414; .381 & +3.3 [$-$0.7, 7.1] \\
+Loop given the list; single pass given the list, fresh-CQ pass rate (arm means only) & 2Wiki, 30 & .375; .330 & --- \\
+Combined $-$ plain extraction, rescored without a judge & 2Wiki, 60 & .479; .416 & +6.3 [3.6, 8.9] \\
+Held-out questions: combined $-$ seeded extraction & 2Wiki, 60 & .348; .074 & +27.3 [23.4, 31.1] \\
+Same, combined $-$ plain extraction & 2Wiki, 60 & .348; .131 & +21.7 [18.0, 25.7] \\
+Same, combined $-$ its first pass & 2Wiki, 60 & .348; .316 & +3.2 [2.0, 4.2] \\
+Same, combined first pass $-$ seeded extraction & 2Wiki, 60 & .316; .074 & +24.1 [20.1, 27.8] \\
+Same, combined $-$ list-schema pass (judge; rule only) & 2Wiki, 30 & .349; .349 (rule .402; .377) & +0.0 [$-$3.7, 3.4]; +2.5 [$-$0.8, 5.7] \\
+Same, list-schema pass $-$ seeded extraction; $-$ plain extraction & 2Wiki, 30 & .349; .075; .134 & +27.4 [22.8, 31.9]; +21.5 [17.8, 25.6] \\
+Same, CQ-guided single pass $-$ list-schema pass & 2Wiki, 30 & .321; .349 & $-$2.8 [$-$7.4, 1.3] \\
+Same, second set (other run seed, separate list-schema run): combined $-$ list-schema pass (judge; rule only) & 2Wiki, 24 & .331; .326 (rule .406; .349) & +0.4 [$-$2.6, 3.7]; +5.7 [2.3, 8.9] \\
+Same, rule only, combined $-$ seeded extraction; $-$ plain extraction & 2Wiki, 60 & .409; .116; .204 & +29.3 [25.8, 32.8]; +20.5 [16.9, 24.8] \\
+Seeded extraction $-$ plain extraction, fresh-CQ pass rate & 2Wiki, 30 & .275; .381 & $-$10.7 [$-$13.6, $-$7.8] \\
+Same, 60 units, rerun scoring & 2Wiki, 60 & --- & $-$11.1 [$-$13.3, $-$8.7] \\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+\begingroup\footnotesize
 \subsection{Further relation-list checks}
 \label{app:seednames}
 \paragraph{Relation list names.} Table~\ref{tab:seednames} lists the 22 names of each 2Wiki list, copied from the list files, in alphabetical order.
 
 \begin{table}[t]
 \centering
-\caption{The original list (relation names taken from the 2WikiMultihopQA training split) the induced list (proposed by an LLM from 300 corpus chunks), and a list induced the same way from 300 chunks outside the evaluation shards.}
+\caption{The original list (relation names taken from the 2WikiMultihopQA training split), the induced list (proposed by an LLM from 300 corpus chunks), and a list induced the same way from 300 chunks outside the evaluation shards.}
 \label{tab:seednames}
 \scriptsize\setlength{\tabcolsep}{3pt}
 \begin{tabular}{lP{6.6cm}}
@@ -97,11 +209,11 @@ Induced outside shards & based on, birth date, birth place, cast member, child, 
 \end{table}
 
 \paragraph{Synonyms and alignment.}
-Class-aligned recall fell under synonyms, as name alignment predicts. In U-ext the synonym list's answer correctness was $-$1.5 points against the original list ([$-$4.2, 1.4]). A post hoc re-analysis of stored predictions tests the original list's gain without name matching (Table~\ref{tab:seedalign}). For the three pipelines that use CQs the effect stays above zero on both measures, and class-free recall keeps 65 to 85\% of the class-aligned effect.
+In U-ext the synonym list's answer correctness was $-$1.5 points against the original list ([$-$4.2, 1.4]). A re-analysis of stored predictions tests the original list's gain without name matching (Table~\ref{tab:seedalign}). For the three pipelines that use CQs the effect stays above zero on both measures, and class-free recall keeps 65 to 85\% of the class-aligned effect.
 
 \begin{table}[!htb]
 \centering
-\caption{Post hoc list effect in points (95\% BCa intervals, 30 shards, 60 units), Exp7. Class-free recall ignores relation classes when matching triples to gold; answer correctness drops the grounding requirement.}
+\caption{List effect in points (95\% BCa intervals, 30 shards, 60 units), main study. Class-free recall ignores relation classes when matching triples to gold; answer correctness drops the grounding requirement.}
 \label{tab:seedalign}
 \scriptsize\setlength{\tabcolsep}{2.5pt}
 \begin{tabular}{lccc}
@@ -117,111 +229,201 @@ U-ext & +2.1 [1.0, 3.5] & +0.6 [$-$0.7, 2.3] & +3.0 [0.0, 6.6] \\
 \end{table}
 
 \subsection{Seeded extraction against the combined pipeline}
-A post hoc 90\% interval of [$-$3.0, 2.6] around the difference in grounded QA (Section~\ref{sec:res-cost}) excludes differences beyond about 3 points in either direction. On T-REx the combined pipeline found more gold evidence (class-aligned recall +4.4, 90\% [3.0, 6.0]).
+A 90\% interval of [$-$3.3, 2.3] around the difference in grounded QA, seeded minus combined (Section~\ref{sec:res-cost}) excludes differences beyond about 3 points. On T-REx the combined pipeline found more gold evidence (class-aligned recall +4.4, 90\% [3.0, 6.0]).
 
 \subsection{Fact-count check and coverage}
-With the list, U-ext raised grounded QA over L0+vocab by 6.3 points ([2.6, 9.4], post hoc).
+With the list, U-ext raised grounded QA over L0+vocab by 6.3 points ([2.6, 9.4]).
 
-\paragraph{Heuristic selections at equal fact count.} Appendix Table~\ref{tab:selection} gives the eight registered contrasts of the equal-fact-count check against the CQ-guided pass.
 
 \begin{table}[!htb]
 \centering
-\caption{Guided single pass minus a selection of the extraction graph at the guided pass's fact count (Qwen on 2Wiki, 60 shard $\times$ run seed units; grounded QA, differences in points with 95\% intervals). Status gives the outcome of the registered test of whether the selection scores above the guided pass. The selectors read no questions or gold relations; one arm reads the unit's CQs.}
+\caption{Guided single pass minus a selection of the extraction graph at the guided pass's fact count (Qwen on 2Wiki, 60 shard $\times$ run seed units; grounded QA, differences in points with 95\% intervals). Result states which pass scores higher. The selectors read no questions or gold relations; one arm reads the unit's CQs; the random subset is a uniform draw. Selectors keep: most frequent relations; most central entities; most connected two-hop paths (chain); facts the answer model rates most informative from the chunk (model); BM25 match to the 40 CQs (CQ); round-robin by chunk (balanced).}
 \label{tab:selection}
 \scriptsize\setlength{\tabcolsep}{3pt}
 \begin{tabular}{llcl}
 \toprule
-Selection & Relation list & Guided $-$ selection & Status \\
+Selection & Relation list & Guided $-$ selection & Result \\
 \midrule
-Entity centrality & none & +14.4 [9.5, 19.5] & Reg.: guided higher \\
-Relation frequency & none & $-$8.0 [$-$13.3, $-$2.7] & Reg.: selection higher \\
-Entity centrality & seeded & +25.8 [20.5, 30.5] & Reg.: guided higher \\
-Relation frequency & seeded & +16.6 [11.4, 22.1] & Reg.: guided higher \\
-Chain-preserving & seeded & +25.0 [19.8, 30.1] & Reg.: guided higher \\
-Model-scored & seeded & +14.3 [8.9, 19.3] & Reg.: guided higher \\
-CQ-selected & seeded & +33.3 [28.3, 37.7] & Reg.: guided higher \\
-Chunk-balanced & seeded & +37.2 [31.6, 41.4] & Reg.: guided higher \\
+Entity centrality & none & +14.4 [9.3, 19.3] & guided higher \\
+Relation frequency & none & $-$8.0 [$-$13.5, $-$3.0] & selection higher \\
+Entity centrality & seeded & +25.8 [20.3, 30.3] & guided higher \\
+Relation frequency & seeded & +16.6 [11.2, 21.9] & guided higher \\
+Chain-preserving & seeded & +25.0 [19.8, 30.1] & guided higher \\
+Model-scored & seeded & +14.3 [8.9, 19.3] & guided higher \\
+CQ-selected & seeded & +33.3 [28.3, 37.7] & guided higher \\
+Chunk-balanced & seeded & +37.2 [31.6, 41.4] & guided higher \\
+Random subset & none & +28.2 [23.2, 33.0] & guided higher \\
+Random subset & seeded & +39.1 [34.0, 43.9] & guided higher \\
 \bottomrule
 \end{tabular}
 \end{table}
 
 \subsection{Hybrid QA and CQ count}
 \label{sec:res-hybrid}
-Table~\ref{tab:exp9other} gives the CQ-count settings. On the Exp7 graphs (Qwen, 2Wiki), hybrid QA scored above vector-only QA (.502 [.460, .544]) in every pipeline (Table~\ref{tab:newchecks}); the run with 60 graph facts is reported in Section~\ref{sec:res-cost}. In Exp8, four times as many CQs at the same budget raised KG-only QA in all four settings (Table~\ref{tab:exp9}); hybrid QA, the registered primary measure, did not separate from the 40-CQ reference.
+Tables~\ref{tab:exp9other} and~\ref{tab:exp9} give the results at each CQ count. On the main-study graphs (Qwen, 2Wiki), hybrid QA scored above vector-only QA (.502 [.460, .544]) in every pipeline (Table~\ref{tab:newchecks}). In the CQ-count study, four times as many CQs at the same budget raised KG-only QA in all four settings (Table~\ref{tab:exp9}); hybrid QA did not separate from the 40-CQ reference.
 
 
-\subsection{Evaluation-guided repair}
-\label{sec:res-loop}
-Iterative CQ generation in Exp2 grew the CQ set from 12.0 to 85.8 per shard and evidence recall from .093 to .377 (Table~\ref{tab:glance}). Evaluation-chosen patches scored 1.9 points above random patches ([$-$1.6, 5.3]). Exp5 repaired queries first and patched only graph-side failures, gating each patch on reserved curation CQs and never on held-out questions; evaluation-chosen patches again did not improve on random patches ($-$0.3; upper bound 3.1, margin 5).
+
+\subsection{Answer-time fact cap}
+\label{app:factcap}
+The stored graphs were answered again at caps of 10 to 120 facts with the same retrieval, prompt, answerer and scorer (Qwen); cap $k$ keeps the first $k$ facts of the cap-120 retrieval, and the cap-60 rerun matched the stored retrieval on every question. On 2Wiki, seeded extraction $-$ loop was $-$9.3 ([$-$13.2, $-$5.7]) at 30 facts and +4.2 ([1.2, 7.2]) at 120; on HotpotQA seeded extraction led by 5.6 at 10 facts and 17.7 at 120. The list-schema pass minus the combined pipeline was +9.8 to +11.7 at caps of 10 to 30, +3.4 [0.2, 6.4] at 60 in this rerun (+4.6 in the main run) and $-$0.4 [$-$3.2, 2.4] at 120; minus the repair loop it was +4.1 to +5.8 at every cap.
+
+
+\paragraph{Reach intervention.}\label{app:reach}
+On the stored 2Wiki graphs (6 arms $\times$ 60 units), adding the held gold-evidence facts to the 60 the answerer saw raised answer correctness by 4.3 to 10.0 points and removing them lowered it by 40.4 to 62.5 (Holm $p \le .0007$).
+
+
+\paragraph{Alternative retrievers.}\label{app:altret}
+The stored graphs were answered with the 60 nearest facts under Qwen3-Embedding-0.6B (no entity linking or hop expansion) or with its rank fusion with our retriever (2Wiki, 8 arms $\times$ 60 units; HotpotQA, 5 arms $\times$ 30 units). Grounded QA on 2Wiki was 10 to 24 points lower under the embedding retriever; Table~\ref{tab:altret} gives the contrasts. Under BM25+dense the combined pipeline fell behind seeded extraction ($-$2.6 [$-$4.5, $-$0.5]).
+
+\begin{table}[t]
+\centering
+\caption{Contrasts in grounded QA (points, 95\% intervals) under our retriever and two alternative answer-time retrievers (Qwen, stored graphs). 2Wiki rows use 60 units and the HotpotQA row 30. Last row: list effect on plain extraction. List-schema grounded QA .427 (embedding), .415 (fusion).}
+\label{tab:altret}
+\scriptsize\setlength{\tabcolsep}{1.5pt}
+\begin{tabular}{P{2.35cm}P{2.1cm}P{2.1cm}P{2.1cm}}
+\toprule
+Contrast & Ours (BM25) & Embedding & BM25+dense \\
+\midrule
+Loop+list $-$ seeded & $-$0.4 [$-$3.6, 2.8] & $-$2.5 [$-$5.3, 0.4] & $-$4.0 [$-$6.6, $-$1.2] \\
+List on single pass & +14.7 [10.9, 18.4] & +6.5 [3.5, 9.2] & +5.6 [2.6, 8.6] \\
+EDC $-$ plain extraction & $-$11.4 [$-$15.2, $-$7.5] & $-$6.2 [$-$9.4, $-$3.0] & $-$7.4 [$-$10.4, $-$4.3] \\
+iText2KG $-$ plain extraction & $-$12.8 [$-$16.5, $-$8.6] & $-$4.0 [$-$7.3, $-$0.6] & $-$6.8 [$-$10.4, $-$3.9] \\
+HotpotQA loop $-$ seeded & $-$15.2 [$-$18.8, $-$11.7] & $-$14.4 [$-$17.9, $-$11.2] & $-$14.8 [$-$19.4, $-$11.5] \\
+List-schema $-$ combined & +4.6 [1.3, 7.8] & +4.2 [0.8, 7.2] & +4.5 [1.1, 7.7] \\
+Combined $-$ seeded & +0.3 [$-$3.0, 3.6] & $-$0.2 [$-$2.4, 1.9] & $-$2.6 [$-$4.5, $-$0.5] \\
+List effect & +4.5 [0.7, 8.8] & +2.3 [$-$0.4, 4.9] & +2.3 [0.1, 4.6] \\
+\midrule
+List-schema $-$ combined & --- & +4.2 [0.8, 7.2] & +4.5 [1.1, 7.7] \\
+List-schema $-$ loop & --- & +6.5 [2.8, 9.9] & +5.8 [2.2, 9.4] \\
+List-schema $-$ seeded & --- & +4.0 [1.1, 6.7] & +1.9 [$-$1.6, 5.3] \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Question types and operations}
+\begin{table}[t]
+\centering
+\caption{Grounded QA contrasts on 2Wiki by question type (points, 95\% intervals; Qwen, 30 shards, 4 questions per type per shard) and by number of gold evidence items. Evidence count and type overlap: the three-or-more group is 120 bridge-comparison and 7 comparison questions.}
+\label{tab:qtype}
+\scriptsize\setlength{\tabcolsep}{1.5pt}
+\begin{tabular}{P{2.45cm}P{2.2cm}P{2.2cm}P{2.2cm}}
+\toprule
+Type ($n$ questions) & Loop+list $-$ seeded & Single pass+list $-$ single pass & Combined $-$ seeded \\
+\midrule
+Comparison (120) & $-$14.2 [$-$21.7, $-$7.5] & +13.3 [6.3, 19.6] & $-$0.8 [$-$6.7, 4.6] \\
+Bridge-comparison (120) & +22.5 [14.2, 31.7] & +28.8 [18.8, 38.3] & +8.3 [$-$1.7, 17.5] \\
+Compositional (120) & $-$5.0 [$-$11.3, 0.4] & +10.0 [3.8, 16.7] & 0.0 [$-$7.1, 5.8] \\
+Inference (120) & $-$5.0 [$-$12.9, 2.5] & +6.7 [0.8, 11.7] & $-$6.3 [$-$12.9, 0.8] \\
+All (480) & $-$0.4 [$-$3.6, 2.8] & +14.7 [10.9, 18.4] & +0.3 [$-$3.0, 3.6] \\
+\midrule
+2 evidence items (353) & $-$7.8 [$-$11.3, $-$4.4] & +9.4 [5.6, 13.2] & $-$1.9 [$-$5.0, 1.4] \\
+$\ge$3 evidence items (127) & +21.3 [13.0, 30.7] & +28.9 [19.4, 39.0] & +7.9 [$-$0.8, 17.5] \\
+\bottomrule
+\end{tabular}
+\end{table}
+Per unit, the loop and the combined pipeline took a median of 2,000 s and 1,935 s against 103 s for seeded extraction (about 19 times; concurrency differed); the Gemma loop with the list failed in 7 of 60 units from output cut or invalid JSON after retries.
 
 \subsection{Combined pipeline versus the loop}
-In Exp7 the combined pipeline and LOOP+vocab (Table~\ref{tab:exp8}) used 838k and 878k tokens in Qwen. Without a per-question triple cap the combined pipeline led in all three models, and at equal fact counts the lead shrank to 0.3 to 1.1 points (Table~\ref{tab:equalcount}). In Qwen, capped recall favoured the loop (Table~\ref{tab:glance}). On T-REx with Gemma, neither registered contrast was established (Table~\ref{tab:replication}).
+Without a per-question triple cap the combined pipeline led in all three models (Table~\ref{tab:replication}), and at equal fact counts the lead shrank to +1.1 [0.5, 1.9] in Qwen, +0.3 [$-$0.6, 1.1] in Gemma and +0.3 [$-$0.5, 1.3] in Nemotron. In Qwen, capped recall favoured the loop (Tables~\ref{tab:exp8} and~\ref{tab:glanceall}).
 
-\begin{table}[!htb]
-\centering
-\caption{Exp7: recall lead of the combined pipeline over LOOP+vocab, in points with 95\% intervals; uncapped means without a per-question triple cap. Intervals resample shard $\times$ run seed units by shard.}
-\label{tab:equalcount}
-\scriptsize\setlength{\tabcolsep}{2.5pt}
-\begin{tabular}{lccc}
-\toprule
-Model & Units & Uncapped recall lead & At equal fact counts \\
-\midrule
-Qwen & 60 & +5.6 [4.2, 7.0] & +1.1 [0.5, 1.9] \\
-Gemma & 60 & +9.2 [7.6, 11.4] & +0.3 [$-$0.6, 1.1] \\
-Nemotron & 41 & +13.1 [8.9, 16.8] & +0.3 [$-$0.5, 1.3] \\
-\bottomrule
-\end{tabular}
-\end{table}
 
 \subsection{Further checks}
-Of the 2,196 gold evidence facts in the Exp2 graphs, 860 were reproduced exactly, 74 had a wrong value, 96 were split across entities and 1,166 were missing. Omissions made up 87.3\% of the 1,336 inexact facts. SHACL shapes~\cite{knublauch2017shacl} flagged 0.15\% of the inexact facts ([0, 0.37]) and 25.1\% of correct facts.
+Of the 2,196 gold evidence facts in the iteration-study graphs, 860 were reproduced exactly, 74 had a wrong value, 96 were split across entities and 1,166 were missing. Omissions made up 87.3\% of the 1,336 inexact facts. SHACL shapes~\cite{knublauch2017shacl} flagged 0.15\% of the inexact facts ([0, 0.37]) and 25.1\% of correct facts.
 
-\paragraph{Exp3.} The fixed relation list scored higher than prompt optimisation with MIPROv2 or GEPA on 400 test questions, with and without matching the number of triples (Table~\ref{tab:exp3}, arm means).
+\paragraph{Loop against seeded extraction, further checks.}\label{app:loopfurther} With Gemma on 2Wiki the loop differed from seeded extraction by $-$0.2 points [$-$4.5, 4.0] on the 53 of 60 units that completed and by $-$5.6 [$-$11.1, $-$0.6] when failed units count as 0, the rule of the replication analyses.
 
-\begin{table}[!htb]
+
+\paragraph{Held-out test of the list decision.}\label{app:heldout} Each pair of graphs with and without the list was split at random into halves, 1,000 times; a validation half held 15 to 17 shards (about 16 questions each). The validation half added the list when its mean grounded QA difference was above 0; the choice was right when the test half's value for it was at least that of the other side. Right choices: single pass 100\% on all three corpora; extraction 96.8\% on 2Wiki with the original list, 43.7\% with the induced list (mean difference +0.8), 25.6\% on T-REx and 96.0\% on HotpotQA. Test losses were at most 1.0 point.
+
+
+\paragraph{Prompt-optimisation study.}\label{app:promptopt} On 400 test questions the fixed list reached evidence recall .425, against .363 for MIPROv2 and .356 for GEPA.
+
+\subsection{CQ-count study arms and measures}
+\label{app:exp8def}
+The reference arm uses 40 CQs at the 1$\times$ token budget, which for each shard comes from a reference run; an arm stops after using 95\% of it. Other arms are named by CQ count and budget (160 CQs at 1$\times$ and 4$\times$, 40 CQs at 4$\times$). The source check regenerates a CQ up to 3 times when its embedding (Qwen3-Embedding-0.6B) does not match the top 5 retrieved chunks.
+
+In the CQ-count study, KG-only QA gives the answerer graph facts only.
+
+\begin{table*}[!t]
 \centering
-\caption{Exp3 evidence recall on 400 test questions. The last column equalises the number of triples across arms.}
-\label{tab:exp3}
-\small\setlength{\tabcolsep}{3.5pt}
-\begin{tabular}{lcc}
+\scriptsize\setlength{\tabcolsep}{3pt}\renewcommand{\arraystretch}{0.7}
+\caption{The eight studies (the error analysis varies no component, the others each vary one), and the Gemma replication.}
+\label{tab:experiments}
+\begin{tabular}{lp{9.4cm}p{5.0cm}l}
 \toprule
- & Recall & Recall, equal triples \\
+Study & Question & Data & Models \\
 \midrule
-Relation list & .425 & .411 \\
-MIPROv2 & .363 & .255 \\
-GEPA & .356 & .337 \\
-Default prompt & --- & .181 \\
+Building-ontology study & Does iterative CQ refinement improve a graph? & Building ontology bank, 35 test questions & Qwen \\
+Iteration study & Does iteration improve on one batch of the same CQs? & 2Wiki, 24 shards & Qwen \\
+Prompt-optimisation study & Does prompt optimisation improve on a relation list? & 2Wiki, 400 test questions & Qwen \\
+First patch study & Does a CQ $\rightarrow$ SPARQL $\rightarrow$ judge $\rightarrow$ patch loop help? & 2Wiki, 40 shards & Qwen \\
+Second patch study & Does a loop with query repair and a rejecting gate help? & 2Wiki, 24 shards $\times$ 2 run seeds & Qwen \\
+Error analysis & Which error types occur, and can Shapes Constraint Language (SHACL) see them? & iteration-study graphs & --- \\
+Main study & What do the combined pipeline's parts add? & 2Wiki, 30 shards $\times$ 2 run seeds & Qwen \\
+CQ-count study & How do CQ count, budget and hybrid QA interact? & 2Wiki and T-REx, 20 to 33 shards & Qwen, Gemma \\
+Replication & Gemma (building-ontology, patch and main studies; main design on T-REx) & as above & Gemma \\
 \bottomrule
 \end{tabular}
-\end{table}
+\end{table*}
 
-\paragraph{Exp1.} Iterative CQ refinement raised the gold ASK-query pass rate over no refinement on building-ontology questions (+21.4 points, [16.2, 27.1], 35 test questions; positive by construction).
+\subsection{Scoring, token and selector details}
+\label{app:details}
+\paragraph{Further arms.}\label{app:armsextra} G is the CQ-guided single pass (L0) with CQs expanded to every chunk; GR adds evaluate-and-repair rounds to G; L0+vocab$K$ gives L0 $K$ of the 22 names ($K$ = 6, 11, 17; nested random subsets). All three use CQs and take the list where L0 does.
+
+\paragraph{Metric definitions.}\label{app:metricdefs}
+\begin{itemize}
+  \item \emph{Evidence recall}: \emph{uncapped recall} counts every matching triple. \emph{Capped recall} is recall under a per-question triple budget $B$, so padding the graph lowers it; the formula, $B$ and the slice follow below.
+  \item \emph{Relation accuracy} (the share of gold evidence triples with a fact on the right entity pair, relation and direction) is scored by code against the gold relation names (23 for 2Wiki, 14 for T-REx) and a synonym and inverse-relation table fixed in advance. \emph{Entity-pair coverage} is the share with a fact on the right entity pair under any relation, and \emph{relation correctness within matched pairs} the share of those pairs with the right relation and direction. HotpotQA's gold evidence names no relation, so the measure is undefined there.
+  \item The \emph{pass rate of fresh CQs} uses 40 new CQs per shard and run, written from random chunks with a neutral prompt and no relation list. SPARQL is generated three times for each CQ from the graph's schema (its classes and a slice of the 15 properties whose names and types share the most word stems with the question, not its facts); a query passes when it returns the expected answer span and the judge scores it 2, and the pass rate is the mean over the three generations.
+  \item \emph{Hybrid QA} gives the answerer graph facts and retrieved passages, and \emph{vector QA} gives it passages only. KG-only QA: Appendix~\ref{app:exp8def}.
+\end{itemize}
+
+\paragraph{Evidence recall.} A gold evidence triple counts as present when a chunk-cited triple links the same entity pair under a predicate of the same relation class. The capped-recall budget is two triples for every source sentence of the question's paragraphs, and the hypergeometric expectation is computed exactly. A question's graph slice is the set of triples extracted from the chunks of its own ten paragraphs. For gold evidence $e$ with $m_e$ matches among the $N$ triples of the slice and budget $b=\min(B,N)$, the evidence counts $1-\binom{N-m_e}{b}/\binom{N}{b}$; capped recall is the mean over gold evidence.
+
+\paragraph{Answer correctness.} Normalised exact match against the gold answer and its aliases or demonyms, the first token for yes/no questions, exact match for dates; ``unknown'' counts as wrong.
+
+\paragraph{External extractors and HippoRAG 2.}\label{app:external}
+iText2KG 1.1.0 (no incremental merging), EDC~\cite{zhang2024edc} (Self Canonicalization) and AutoSchemaKG~\cite{bai2026autoschemakg} (triples; 30 shards, one run) ran once per chunk on the main study's 2Wiki chunks with Qwen and were scored by its answerer and scorer; only one EDC run took the 22 names (Appendix Table~\ref{tab:itext}). HippoRAG 2 used the same chunks, Qwen builder and answerer and Qwen3-Embedding-0.6B, answering from its top 5 passages, at 268k tokens per unit (204k construction, 64k queries; seeded extraction 128k on the same count).
+
+\paragraph{Fresh-CQ pass rate by judge.}\label{app:freshcq}
+The held-out-question rows of Table~\ref{tab:listschema} use the 16 evaluation questions of each shard in place of fresh CQs (gold answer as expected span, gold evidence chunks as the judge's source, three SPARQL generations). On the 30 units of run seed 20261101 the loop passed 31.5\% (arm values for the other arms in Table~\ref{tab:listschema}). A judge from another family (Claude Haiku 5.5) agreed with the Qwen judge on 91.9\% of final passes ($\kappa$ = .81).
+
+\paragraph{Held-out SPARQL checks.}\label{app:sparqlchecks} On the 30 main-study 2Wiki units, a Claude Haiku 5.5 judge rescored the 4,718 regenerations that passed the rules, stricter than the Qwen judge, with the same ordering (list-schema pass minus seeded extraction +22.6 [19.4, 26.3]; combined minus list-schema pass $-$2.9 [$-$6.5, 0.3]).
+
+\paragraph{Grounded QA definition.}\label{app:groundedqa} With $R(q, G) \subseteq G$ the facts retrieved for question $q$ from graph $G$, the indicator $\mathbb{I}_{\text{gc}}(q) \in \{0, 1\}$ is 1 when the answer generated from $R(q, G)$ is correct and grounded in those facts, and grounded QA over held-out questions $Q$ is $\frac{1}{|Q|}\sum_{q \in Q} \mathbb{I}_{\text{gc}}(q)$. The answerer sees graph facts and no passages (graph-only); retrieval and the grounding rule are in Appendix~\ref{app:groundedret}. QA-time retrieval is the same for every arm and does not use the list. The answerer sees at most 60 retrieved facts unless stated; Section~\ref{sec:res-loop} and Appendix~\ref{app:factcap} vary this cap.
+
+\paragraph{Grounded QA retrieval.}\label{app:groundedret} For comparison questions every gold evidence pair (subject and object, in either direction) must appear in a retrieved fact that cites a chunk containing the evidence. For open questions the gold answer must appear as the subject or object of a retrieved fact. Relation classes enter only evidence recall (class-aligned recall). Also requiring the retrieved fact's relation class to match the gold relation lowers every arm by 0.7 to 2.9 points and leaves the gaps to the public extractors in place (seeded extraction minus iText2KG +18.8, against +17.3). The question is linked to entity labels (with aliases) by exact n-gram matching, the graph is followed for up to two hops, each entity contributes at most 25 facts ranked by BM25, and the facts in $R(q, G)$ are ordered by hop, then BM25, and capped at 60.
 
 
+\paragraph{Fresh CQs, hybrid QA and precision.} Fact precision is judged on 40 sampled facts per graph; gold evidence covers only the facts that questions need, so unaligned triples are not counted as errors. Hybrid QA uses up to 30 graph facts (main run; a rerun used up to 60) and 3 passages, vector QA 5.
 
-
-\subsection{Exp8 arms and measures}
-\label{app:exp8def}
-The reference arm uses 40 CQs at the 1$\times$ token budget. For each shard the budget comes from a reference run, and an arm stops after using 95\% of it. Other arms are named by CQ count and budget: 160 CQs at 1$\times$, 160 CQs at 4$\times$ and 40 CQs at 4$\times$. The source check is on in the 40-CQ and 160-CQ arms. Each generated CQ is embedded with Qwen3-Embedding-0.6B and compared with the top 5 retrieved chunks, and a CQ that fails is regenerated up to 3 times.
-
-In Exp8, KG-only QA gives the answerer graph facts only. Measure F2 takes the vector answer unless it abstains, and then the KG-only answer.
+\paragraph{Decoding and tokens.} Cache hits count at full token cost. All models were served with vLLM, and Qwen ran with thinking off; six of the 60 main-run list-schema units were built later with the same weights on another engine instance. The QA answerer and extraction decode at temperature 0 (120 and 1,500 output tokens).
 
 \subsection{Registration records and run details}
 \label{app:registration}
-\paragraph{Plans and labels.}
-Each experiment has a plan, fixed before the main run, that states hypotheses and decision rules, and a deviation log that we kept during the run. The list comparisons in Exp7 are descriptive intervals, and G$-$L0 in Exp4 and Exp5 (Table~\ref{tab:arms}) is a post hoc secondary contrast. Seeded extraction (U-ext+vocab) is an arm added after an internal review and run under its own addendum. The comparison of iText2KG with the Exp7 arms was registered, and its outputs are descriptive; the comparisons with EDC and AutoSchemaKG were registered as descriptive, except EDC with the list (registered, Holm-corrected). Decisions use the labels of each plan: \emph{improved}, \emph{not improved} and \emph{not established}. An interval that includes zero is reported as \emph{did not separate}. The plan for the chunk-retrieval comparison registered answer correctness as the measure.
-
-\paragraph{Checks added after the main study.}
-Eight checks added after the main study each had a plan fixed before its run: the synonym list, fact precision, vector versus hybrid QA, the Exp7 arms on T-REx, the subsets at equal fact count, the induced list, the list induced outside the evaluation shards and the share of the list given. A further check compares chunk retrieval with the graph. The synonym-list check replaces the 22 names by synonym phrases; its hypotheses are registered and its vocabulary-adoption measure is post hoc. Its comparison arms are the stored Exp7 runs, and a rerun of four arms on the same instance reproduced the stored values. Hypotheses and analysis were fixed before each check. Fact precision has a registered non-inferiority contrast (margin $-$5 points). On T-REx, the Exp7 arms have a registered equivalence test (margin $\pm$3 points); seeded extraction led the combined pipeline there, so the test did not establish equivalence. In Exp8, the hybrid-QA contrasts are registered and only the analysis of why hybrid QA fell is post hoc; KG-only QA and evidence recall are secondary measures.
-
-\paragraph{Serving instances.}
-The 60-fact hybrid run, the outside-shard list run and the EDC run with the list used another serving instance than the stored arms they are compared with; the instance changed during the hybrid and outside-shard runs and after the first 12 EDC units. The same arm differed between serving instances (no list .433 stored, .417 rerun), so contrasts are taken within one instance where possible. The retrieval comparison reran seeded extraction on the retrieval arms' own serving engine (.669 against .678 in the stored run). The selector arms of the equal-fact-count check ran on a different serving engine from the stored guided-pass arm. The reruns of the dose check (Table~\ref{tab:seeddose}) all come from one instance; the stored Exp7 values come from another.
-
-\paragraph{List induction.}
-For the induced list an LLM proposed relation names from 300 chunks of the corpus being built and the proposals were merged into 22 names. No question and no gold relation was used. On T-REx a list of 22 names was induced the same way from 300 of the 386 evaluation-corpus passages, again with no questions and no gold relations. The induction therefore read passages of the corpus that is later queried (a transductive setting), and 4 of its 22 names match the 2Wiki list exactly. The list induced outside the evaluation shards was built with the same procedure from 96 passages outside the evaluation shards, so no evaluation passage and no question was read; 15 of its 22 names match the first T-REx list and 6 match the 2Wiki list. It gave +7.4 points of grounded QA over no list in the single pass (Section~\ref{sec:res-schema}).
+\paragraph{List induction.}\label{app:induction}
+The list is induced from the corpus being built, with no question and no gold relation: the extraction model reads 300 random passages (title and first 1,200 characters) in 20 batches of 15, proposes up to 15 relation names per batch, and one call merges the 80 names proposed in the most batches into exactly 22. A second 2Wiki list came the same way from 300 of 6,136 chunks outside the evaluation shards (5 of the 22 names of the original list, Jaccard .128); on T-REx the lists came from 300 of the 386 evaluation-corpus passages and from 96 passages outside the evaluation shards (Section~\ref{sec:res-schema}). On 2Wiki the induced list matched the gold relations for 62.2 (strict) to 72.0\% (lenient) of the evidence, the original list for 98.4\%.
 
 \paragraph{Statistics.}
-Intervals resample 30 shards on 2Wiki (two run seeds averaged within a shard, 60 units) and 33 shards on T-REx per run seed. Intervals are two-sided 95\% unless marked one-sided or post hoc 90\%. P-values from 10,000 resamples have a floor of 1/10,001. Post hoc analyses reuse the stored predictions and make no new model calls.
+Intervals are BCa bootstrap intervals over shards (B = 10,000); Holm correction is applied within each plan, and Table~\ref{tab:glanceall} gives each contrast's result.
 
-\paragraph{Status of contrasts reported in Sections~\ref{sec:res-schema} to~\ref{sec:res-cqs}.}
-Registered, improved, with Holm-adjusted $p$: synonym list in L0, answer correctness (0.0002); induced list in L0, answer correctness (0.001); outside-shard list on T-REx, grounded QA (0.0001); outside-shard list on 2Wiki, grounded QA (0.0002); the T-REx single pass against an equal-size random subset of seeded extraction (0.001); guided pass against the chain-preserving selector and the model selector (both 0.0002); against the selection by the unit's CQs (0.0004) and the chunk-balanced selection (0.0005); seeded extraction against EDC with the list (0.0003); the T-REx single pass with the induced list over no list, grounded QA and answer correctness, in both run seeds (Table~\ref{tab:trexseed}). Registered, improved at the boundary: extraction from every chunk with the outside-shard 2Wiki list, grounded QA (+3.1 [0.0, 6.5]). Registered, not established: extraction from every chunk with the outside-shard 2Wiki list, answer correctness (+1.7 [$-$1.0, 4.2]); EDC with against without the list (+0.4 [$-$2.7, 2.9]); on T-REx without the list, the guided pass against a random subset (6.6 [$-$5.8, 12.2]). In the dose check, 11 of 22 names against no list is registered, improved (+10.5 [5.5, 14.5]); the dip at 6 names is a post hoc observation. In the equal-fact-count check without the list, the contrast of the relation-frequency selection above the guided pass (+8.0 [2.7, 13.3]) is registered. The gain of U-ext over L0 without the list (+16.5 [10.6, 21.7]) is post hoc. Seeded extraction against the combined pipeline on 2Wiki is an added arm with a descriptive interval; the answer-correctness contrast (+2.3 [$-$0.2, 4.4]) and its 90\% interval [$-$3.0, 2.6] are post hoc. The comparisons of public extractors with Exp7 arms, the rerun of the original list beside the induced list, the reach rates and the context-free answer model are descriptive; the relation-class requirement and the relaxed entity linking are post hoc reanalyses of the stored predictions and graphs. Chunk-retrieval comparisons (graph against chunk retrieval and list-hinted retrieval) are registered, improved; the raise of the fact cap from 30 to 60 in hybrid QA (U-ext+vocab, Combined) is registered, improved in answer correctness.
+\endgroup
+
+
+\subsection{Supporting values by result}
+\label{app:addedvalues}
+\paragraph{List effects.}
+In Gemma on 2Wiki the list raised grounded QA over no list by 7.4 points in the CQ-guided single pass ([3.3, 11.3]), 7.5 in the loop ([1.3, 15.0]) and 9.3 in the combined pipeline ([5.7, 12.9]). In Qwen, seeded extraction with the 2Wiki list induced outside the evaluation shards gained 3.1 points in grounded QA ([0.0, 6.5]) and was on par with no list in answer correctness (+1.7, [$-$1.0, 4.2]). 
+
+
+
+\subsection{Study overview and relation-list tables}
+\label{app:movedtables}
+
+\paragraph{T-REx lists.}\label{app:trexlist} Lists induced for T-REx (Qwen, 33 shards; outside-shard list one run seed), grounded QA and answer correctness: single pass, list $-$ none, +10.5 [6.0, 15.6] and +9.7 [5.5, 14.4]; plain extraction, list $-$ none, +0.5 [$-$2.5, 2.9] and +0.2 [$-$2.6, 2.7]; outside-shard list $-$ none, single pass, +7.4 [3.9, 11.4] and +6.8 [3.0, 10.9].
+
+\paragraph{List content.}\label{app:seeddose} Answer correctness of the CQ-guided single pass by list content (2Wiki, 60 units; reruns): no list .417 [.366, .474], original list .568 [.521, .613], induced list .579 [.533, .620].
+
+\paragraph{Synonym-list check.}\label{app:synseed} With 60 units (Qwen, 2Wiki), the synonym list minus no list was +15.4 [11.3, 19.5] in answer correctness and +12.4 [9.2, 16.0] in class-free recall (which ignores relation classes) for L0.
+

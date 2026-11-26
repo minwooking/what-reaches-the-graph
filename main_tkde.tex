@@ -13,6 +13,7 @@
 \setlist{itemsep=1pt,topsep=3pt,parsep=0pt}
 \newcolumntype{P}[1]{>{\raggedright\arraybackslash}p{#1}}
 \emergencystretch=3em
+\setlength{\textfloatsep}{8pt plus 2pt minus 3pt}\setlength{\floatsep}{6pt plus 2pt minus 2pt}\setlength{\dbltextfloatsep}{8pt plus 2pt minus 3pt}\setlength{\dblfloatsep}{6pt plus 2pt minus 2pt}
 % Run-in paragraph headings: no numbering, and no second punctuation mark after the title's own period.
 \setcounter{secnumdepth}{3}
 \let\wrgOldParagraph\paragraph
@@ -20,9 +21,11 @@
 \renewcommand{\paragraph}[1]{\wrgOldParagraph{\wrgStripDot#1\relax}}
 
 % Figures produced separately appear in figures/. The build passes before they exist.
-\newcommand{\figseedref}{\IfFileExists{figures/fig_seed_forest_r62.pdf}{, Fig.~\ref{fig:seedforest}}{}}
-\newcommand{\figcostref}{\IfFileExists{figures/fig_cost_quality_r64.pdf}{, Fig.~\ref{fig:costquality}}{}}
+\newcommand{\figseedref}{{, Fig.~\ref{fig:seedforest}}}
+\newcommand{\figcostref}{{, Fig.~\ref{fig:costquality}}}
 
+\newcommand{\releaseurl}{Code, plans and graphs: \url{https://github.com/minwooking/what-reaches-the-graph}.}
+\renewcommand{\arraystretch}{0.9}
 \begin{document}
 
 \title{What Reaches the Graph Decides Held-Out Question Answering in Knowledge Graph Construction}
@@ -54,7 +57,7 @@ E-mail: hail95@seoultech.ac.kr.
 \input{sections/abstract}
 
 \begin{IEEEkeywords}
-Competency questions, knowledge graph construction, question answering, relation vocabulary.
+Competency questions, knowledge graph construction, large language models, question answering, relation list.
 \end{IEEEkeywords}}
 
 \maketitle
@@ -77,7 +80,7 @@ Competency questions, knowledge graph construction, question answering, relation
 \input{sections/appendix}
 
 % biographies follow the appendix directly (no page break)
-\begin{IEEEbiography}[{\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{figures/bio_minwoo_kim.jpg}}]{Minwoo Kim}
+\begin{IEEEbiography}[{\includegraphics[width=0.8in,height=1.0in,clip,keepaspectratio]{figures/bio_minwoo_kim.jpg}}]{Minwoo Kim}
 received the M.S. degree in data science and artificial intelligence from the Graduate School of AI$\cdot$SW, Sogang University, Seoul, Republic of Korea, in 2026. He is with the Manufacturing AX Research Laboratory at INTERX, Seoul, working on large language model (LLM) pipelines for industrial AI applications. His research emphasizes deterministic, auditable pipelines and empirical evaluation of knowledge graph construction and question answering systems. His broader interests include knowledge-graph engineering, autonomous manufacturing, agentic AI, and speech recognition.
 \end{IEEEbiography}
 
@@ -97,11 +100,11 @@ received the B.S. degree in computer engineering through the Academic Credit Ban
 received the B.S. degree in software and the interdisciplinary program in information protection from Soongsil University, Seoul, Republic of Korea. She is currently an AI Researcher with INTERX, a manufacturing AI solution provider. Her research interests include text-to-SQL, chunking strategies, and ontologies.
 \end{IEEEbiography}
 
-\begin{IEEEbiography}[{\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{figures/bio_hail_jung.jpg}}]{Hail Jung}
+\begin{IEEEbiography}[{\includegraphics[width=0.8in,height=1.0in,clip,keepaspectratio]{figures/bio_hail_jung.jpg}}]{Hail Jung}
 is currently an Assistant Professor with the Department of Industrial and Systems Engineering at Seoul National University of Science and Technology, Seoul, Republic of Korea. He is also a founding member and the Chief Technology Officer (CTO) of INTERX, a manufacturing AI solution provider. He has served as an ad-hoc referee for multiple academic journals, including the \emph{Journal of Business Research}.
 \end{IEEEbiography}
 
-\begin{IEEEbiography}[{\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{figures/bio_hongdon_lee.jpg}}]{Hongdon Lee}
+\begin{IEEEbiography}[{\includegraphics[width=0.8in,height=1.0in,clip,keepaspectratio]{figures/bio_hongdon_lee.jpg}}]{Hongdon Lee}
 received the B.B.A. degree in business administration from Yonsei University, Seoul, Republic of Korea, in 2000, and the M.S. degree in statistics and data science from Korea National Open University, Seoul, in 2020. He is currently a Chief Researcher with INTERX, Seoul, Republic of Korea. His research interests include large language models (LLMs), vision-language models (VLMs), AI agents, and computer vision. He is an inventor on approximately ten patents related to generative AI for manufacturing innovation.
 \end{IEEEbiography}
 

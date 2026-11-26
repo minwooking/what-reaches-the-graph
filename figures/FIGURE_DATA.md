@@ -4,12 +4,12 @@
 
 | group | pipeline | metric | delta | 95% CI | source and key |
 |---|---|---|---|---|---|
-| original seed (descriptive) | L0 | grounded QA (gc) | +14.69 | [10.94, 18.44] | paper/access2026/harness/study27_ours_final/post_review/results_postreview.json contrasts['L0+seed − L0'].gc.{delta,ci95} |
-| original seed (descriptive) | LOOP | grounded QA (gc) | +9.38 | [6.35, 12.19] | paper/access2026/harness/study27_ours_final/post_review/results_postreview.json contrasts['LOOP+seed − LOOP'].gc.{delta,ci95} |
-| original seed (descriptive) | combined | grounded QA (gc) | +9.27 | [6.04, 12.08] | paper/access2026/harness/study27_ours_final/post_review/results_postreview.json contrasts['Ours − Ours−seed (seed)'].gc.{delta,ci95} |
-| original seed (descriptive) | U-ext | grounded QA (gc) | +4.48 | [0.73, 8.75] | paper/access2026/harness/study27_ours_final/post_review/results_postreview.json contrasts['U-ext+seed − U-ext (seed effect on U-ext)'].gc.{delta,ci95} |
-| synonym seed (registered) | L0 | answer correct | +15.42 | [11.25, 19.48] | paper/access2026/harness/study32_reviewer_checks/b1_b4/b1/results.json primary.H1.correct.{delta,ci95} |
-| synonym seed (registered) | U-ext | answer correct | +1.56 | [-1.35, 4.17] | paper/access2026/harness/study32_reviewer_checks/b1_b4/b1/results.json primary.H2.correct.{delta,ci95} |
+| original seed | L0 | grounded QA (gc) | +14.69 | [10.94, 18.44] | paper/access2026/harness/study27_ours_final/post_review/results_postreview.json contrasts['L0+seed − L0'].gc.{delta,ci95} |
+| original seed | LOOP | grounded QA (gc) | +9.38 | [6.35, 12.19] | paper/access2026/harness/study27_ours_final/post_review/results_postreview.json contrasts['LOOP+seed − LOOP'].gc.{delta,ci95} |
+| original seed | combined | grounded QA (gc) | +9.27 | [6.04, 12.08] | paper/access2026/harness/study27_ours_final/post_review/results_postreview.json contrasts['Ours − Ours−seed (seed)'].gc.{delta,ci95} |
+| original seed | U-ext | grounded QA (gc) | +4.48 | [0.73, 8.75] | paper/access2026/harness/study27_ours_final/post_review/results_postreview.json contrasts['U-ext+seed − U-ext (seed effect on U-ext)'].gc.{delta,ci95} |
+| synonym seed | L0 | answer correct | +15.42 | [11.25, 19.48] | paper/access2026/harness/study32_reviewer_checks/b1_b4/b1/results.json primary.H1.correct.{delta,ci95} |
+| synonym seed | U-ext | answer correct | +1.56 | [-1.35, 4.17] | paper/access2026/harness/study32_reviewer_checks/b1_b4/b1/results.json primary.H2.correct.{delta,ci95} |
 
 All four original-seed intervals are present in results_postreview.json (LEDGER line 118); none missing.
 
