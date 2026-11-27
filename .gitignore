@@ -18,3 +18,17 @@ __pycache__/
 *~
 .vscode/
 .idea/
+
+# not part of the TKDE submission (removed from history 2026-11-27)
+/OUTLINE.md
+/main.tex
+/main.pdf
+/bullet.png
+/logo.png
+/notaglinelogo.png
+/LEDGER.md
+*HIDDEN*
+**/FAKE*
+**/selftest*/
+*.bak_*
+figures/fig_*_r6[0-9].pdf
